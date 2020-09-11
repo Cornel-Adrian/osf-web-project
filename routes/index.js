@@ -7,6 +7,7 @@ module.exports = function(app) {
     app.use('/users', require('./UserRoutes'));
     app.use('/products', require('./ProductRoutes'));
     app.use('/categories', require('./ProductRoutes'));
+    app.use('/auth',require('./AuthRoutes'));
 
     
     // fallthrough error handler
