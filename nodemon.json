@@ -1,7 +1,0 @@
-{
-    "env": {
-        "BASEURL":"https://osf-digital-backend-academy.herokuapp.com/api/",
-        "PORT": 3000,
-        "SECRETKEY":"$2a$08$wIJRNfwxUKsLnUTmCask0.UTcVjUiLj0RUDncoBZ8CoYO063sbQt6"
-    }
-}
