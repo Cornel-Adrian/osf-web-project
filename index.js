@@ -1,12 +1,11 @@
 const app = require('express')();
 const Sentry = require("@sentry/node");
-const Tracing = require("@sentry/tracing");
+const PORT = process.env.PORT || 3000;
+const SENTRYDSN = process.env.SENTRYDSN;
 
 require('./routes')(app);
 require('dotenv').config()
 
-const PORT = process.env.PORT || 3000;
-const SENTRYDSN = process.env.SENTRYDSN;
 
 Sentry.init({
   dsn: SENTRYDSN,
@@ -18,12 +17,15 @@ const transaction = Sentry.startTransaction({
   name: "My First Test Transaction",
 });
 
+app.listen(PORT, () => {
+  console.log(`Our app is running on port ${PORT}`);
+});
+
+app.set('view engine', 'ejs');
+
 setTimeout(() => {
   try {
     // foo();
-    app.listen(PORT, () => {
-      console.log(`Our app is running on port ${PORT}`);
-    });
   } catch (e) {
     Sentry.captureException(e);
   } finally {
