@@ -1,7 +1,13 @@
 const axios = require('axios');
-const BASEURL = process.config.BASEURL || "localhost.com";
+const BASEURL = process.env.BASEURL || "localhost.com";
+const SECRETKEY = process.env.SECRETKEY || "secretLey";
+const SECREKEYURL = "secretKey=" + SECRETKEY;
+const axiosInstance = axios.create({
+    baseURL: BASEURL
+})
 
 module.exports = {
-    axios = axios,
-    BASEURL = BASEURL
+    SECRETKEYURL : SECREKEYURL,
+    axiosInstance : axiosInstance,
+    SECRETKEY: SECREKEY
 }

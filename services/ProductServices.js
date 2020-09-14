@@ -1,17 +1,20 @@
-async function productSearch(secretKey, page, id, primaryCategoryId) {
-    if (!secretKey) {
-        return;
-    }
+const { SECRETKEYURL } = require("../helpers/httpRequests");
+
+async function productSearch(req) {
+    let id = req.query.id;
+    let page = req.query.page;
+    let primaryCategoryId = req.primary_category_id;
+    
     if (id) {
-        let productIdRequest = await axios.get(BASEURL + "id=" + id + "&secretKey=" + secretKey);
+        let productIdRequest = await axios.get("id=" + id + "&" + SECRETKEYURL);
         return productIdRequest;
     }
     if (page) {
-        let productPageRequest = await axios.get(BASEURL + "page=" + page + "&secretKey=" + secretKey);
+        let productPageRequest = await axios.get("page=" + page + "&" + SECRETKEYURL);
         return productPageRequest;
     }
     if (primaryCategoryId) {
-        let productCategoryRequest = await axios.get(BASEURL + "primary_category_id=" + primaryCategoryId + "&secretKey=" + secretKey);
+        let productCategoryRequest = await axios.get("primary_category_id=" + primaryCategoryId + "&" + SECRETKEYURL);
         return productCategoryRequest;
     }
     return;
