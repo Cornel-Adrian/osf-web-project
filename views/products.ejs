@@ -3,8 +3,10 @@
 <h1>Products</h1>
 <% if (products) { %>
 <% products.forEach(product => { %>
+<img src="/images/<%- product.image_groups[0].images[0].link %>" alt="<%- product.image_groups[0].images[0].alt %>">
 <p><strong><%-product.name  %> </strong></p>
 <p><%- product.page_description %> </p>
+<p>Price:<%- product.price %> <%- product.currency %>   </p> 
 <% }) %>
 <% } %>
 
