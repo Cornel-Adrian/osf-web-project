@@ -1,0 +1,11 @@
+<%- include('./partials/header')-%>
+
+<h1>Categories</h1>
+<% if (categories) { %>
+<% categories.forEach(category => { %>
+<p><strong><%-category.name  %> </strong></p>
+<p><%- category.page_description %> </p>
+<% }) %>
+<% } %>
+
+<%- include('./partials/footer')-%>

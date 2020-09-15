@@ -1,34 +1,35 @@
-const { axios, BASEURL } = require("../helpers/httpRequests");
+const { axiosInstance, SECRETKEYURL } = require("../helpers/HttpRequests");
 
-async function getCategoryById(categoryId, secretKey) {
-    if (!categoryId || !secretKey) {
-        throw new error("Category or Secret Key is null");
-    }
-    try {
-        let categoryIdRequest = await axios.get(BASEURL + categoryId + "?secretKey=" + secretKey);
-        return categoryIdRequest;
-    } catch (err) {
-        throw new err;
-    }
+async function getCategoryById(req) {
+    let categoryId = req.params.id;
+    let categoryIdRequest;
+    await axiosInstance.get("/categories/"+ categoryId + "?" + SECRETKEYURL).then((res) => {
+        categoryIdRequest = res.data;
+    }).catch((error) => { 
+        console.log(error);
+    });
+    return categoryIdRequest;
 }
 
-async function getCategoriesByParentId(parentID, secretKey) {
-    if (parentID == null || secretKey == null) {
-        throw new error("Category or Secret Key is null");
-    }
-    try {
-        let categoryIdRequest = await axios.get(BASEURL + parentID + "?secretKey=" + secretKey);
-        return categoryIdRequest;
-    } catch (err) {
-        throw new err;
-    }
+async function getCategoriesByParentId(req) {
+    let parentId = req.params.id;
+    console.log(parentId);
+    let categoryParentIdRequest;
+    await axiosInstance.get("/categories/parent/" + parentId + "?" + SECRETKEYURL).then((res) => {
+        categoryParentIdRequest = res.data;
+    }).catch((error) => {
+    });
+    return categoryParentIdRequest;
 }
 
-async function getAllCategories(secretKey) {
-    if (secretKey == null) {
-        throw new error("Secret Key is null");
-    }
-    return "getAllCategories";
+async function getAllCategories(req) {
+    let categories;
+    await axiosInstance.get("categories?" + SECRETKEYURL).then((res) => {
+        categories = res.data;
+    }).catch((error) => {
+    });
+    return categories;
+
 }
 
 module.exports = {

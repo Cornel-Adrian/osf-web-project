@@ -1,4 +1,4 @@
-const { SECRETKEYURL } = require("../helpers/httpRequests");
+const { SECRETKEYURL } = require("../helpers/HttpRequests");
 
 async function productSearch(req) {
     let id = req.query.id;

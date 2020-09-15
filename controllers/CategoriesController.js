@@ -1,18 +1,18 @@
 const categoriesServices = require('../services/CategoriesServices');
 
-async function getCategoryByID (req, res,next){
-    const returnFromService = await categoriesServices.getCategoryById(req);
-    return res.status(200).json(returnFromService);
+async function getCategoryByID (req, res){
+    const categories = await categoriesServices.getCategoryById(req);
+    return res.render('categories', {categories : categories});
 }
 
-async function getCategoryByParentID(req, res, next){
-    const returnFromService = await categoriesServices.getCategoriesByParentId(req);
-    return res.status(200).json(returnFromService);
+async function getCategoryByParentID(req, res){
+    const categories = await categoriesServices.getCategoriesByParentId(req);
+    return res.render('categories', {categories : categories});
 }
 
-async function getAllCategories(req, res, next){
-    const returnFromService = await categoriesServices.getAllCategories(req);
-    return res.status(200).json(returnFromService);
+async function getAllCategories(req, res){
+    const categories = await categoriesServices.getAllCategories(req);
+    return res.render('categories', {categories : categories});
 }
 
 module.exports = {
