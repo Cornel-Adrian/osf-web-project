@@ -1,21 +1,21 @@
 const { axiosInstance, BASEURL, SECRETKEY } = require("../helpers/HttpRequests");
 
 async function signUp(req) {
-    console.log("Auth Service")
     let user = {
-        name: req.params.name,
-        email: req.params.email,
-        password: req.params.password,
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
         secretKey: SECRETKEY
     }
     user = JSON.stringify(user);
-    console.log(user);
     let authSignUp;
     await axiosInstance.post(BASEURL + "auth/signup", user).then((res) => {
         authSignUp = res.data;
-        console.log(res);
     }).catch((error) => {
-        throw new Error(error);
+        if (error)
+        {
+
+        }
     }).then(() => {
 
     });
@@ -24,8 +24,8 @@ async function signUp(req) {
 
 async function signIn(req) {
     let user = {
-        email: req.params.email,
-        password: req.params.password,
+        email: req.body.email,
+        password: req.body.password,
         secretKey: SECRETKEY
     }
     user = JSON.stringify(user);
