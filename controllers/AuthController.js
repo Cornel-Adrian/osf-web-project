@@ -1,13 +1,13 @@
 const authService = require('../services/AuthServices');
 
 async function signUp(req, res) {
-    const user = await authService.signUp(req);
-    return res.render('index',{user: user});
+    const user = await authService.signUp(req, res);
+    return res.redirect('index');
 }
 
 async function signIn(req, res) {
-    const user = await authService.signUp(req);
-    return res.render('index',{user: user});
+    const user = await authService.signUp(req,res);
+    return res.redirect('index');
 }
 
 module.exports = {

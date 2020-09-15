@@ -5,9 +5,11 @@ const SECRETKEYURL = "secretKey=" + SECRETKEY;
 const axiosInstance = axios.create({
     baseURL: BASEURL
 })
+const bcrypt = require('bcrypt');
 
 module.exports = {
     SECRETKEYURL: SECRETKEYURL,
     axiosInstance: axiosInstance ,
-    SECRETKEY : SECRETKEY
+    SECRETKEY : SECRETKEY,
+    bcrypt: bcrypt
 }
