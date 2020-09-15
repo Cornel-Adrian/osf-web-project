@@ -1,12 +1,15 @@
 <%- include('./partials/header')-%>
-
+<%- include('./partials/navbar')-%>
 <h1>Categories</h1>
-<% if (categories) { %>
-<% categories.forEach(category => { %>
-<img src="/images/<%- category.image %> " alt="">
-<p><strong><%-category.name  %> </strong></p>
-<p><%- category.page_description %> </p>
-<% }) %>
-<% } %>
-
+<div class="grid-container">
+    <% if (categories) { %>
+    <% categories.forEach(category => { %>
+    <div class="container">
+        <img src="/images/<%- category.image %> " alt="">
+        <p><strong><%-category.name  %> </strong></p>
+        <p><%- category.page_description %> </p>
+    </div>
+    <% }) %>
+    <% } %>
+</div>
 <%- include('./partials/footer')-%>

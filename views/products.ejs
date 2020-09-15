@@ -1,14 +1,18 @@
 <%- include('./partials/header')-%>
+<%- include('./partials/navbar')-%>
 <link rel="stylesheet" type="text/css" href="/stylesheets/product-list.style.css" />
 <h1>Products</h1>
-<div class="">
-<% if (products) { %>
-<% products.forEach(product => { %>
-<img src="/images/<%- product.image_groups[0].images[0].link %>" alt="<%- product.image_groups[0].images[0].alt %>">
-<p><strong><%-product.name  %> </strong></p>
-<p><%- product.page_description %> </p>
-<p>Price:<%- product.price %> <%- product.currency %>   </p> 
-<% }) %>
-<% } %>
+<div class="grid-container">
+    <% if (products) { %>
+    <% products.forEach(product => { %>
+    <div class="container">
+        <img src="/images/<%- product.image_groups[0].images[0].link %>"
+            alt="<%- product.image_groups[0].images[0].alt %>">
+        <p><strong><%-product.name  %> </strong></p>
+        <p><%- product.page_description %> </p>
+        <p>Price:<%- product.price %> <%- product.currency %> </p>
+    </div>
+    <% }) %>
+    <% } %>
 </div>
 <%- include('./partials/footer')-%>
