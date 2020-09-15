@@ -1,8 +1,8 @@
 const productServices = require('../services/ProductServices');
 
 function productSearch(req, res){
-    const returnFromService = productServices.productSearch(req);
-    return res.status(200).json(returnFromService);
+    const products = productServices.productSearch(req);
+    return res.render('products', {products: products});
 }
 
 module.exports = {

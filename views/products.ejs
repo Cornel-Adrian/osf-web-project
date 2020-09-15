@@ -1,0 +1,11 @@
+<%- include('./partials/header')-%>
+
+<h1>Products</h1>
+<% if (products) { %>
+<% products.forEach(product => { %>
+<p><strong><%-product.name  %> </strong></p>
+<p><%- product.page_description %> </p>
+<% }) %>
+<% } %>
+
+<%- include('./partials/footer')-%>

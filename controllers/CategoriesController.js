@@ -1,8 +1,8 @@
 const categoriesServices = require('../services/CategoriesServices');
 
 async function getCategoryByID (req, res){
-    const categories = await categoriesServices.getCategoryById(req);
-    return res.render('categories', {categories : categories});
+    const category = await categoriesServices.getCategoryById(req);
+    return res.render('category', {category : category});
 }
 
 async function getCategoryByParentID(req, res){
