@@ -10,7 +10,7 @@ async function productSearch(req, res) {
         await axiosInstance.get("/products/product_search?id=" + id + "&" + SECRETKEYURL).then((res) => {
             product = res.data;
         }).catch((error) => { });
-        return res.render('product', { product: product });
+        return product;
     }
     if (page) {
         let productPage;
