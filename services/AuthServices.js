@@ -1,32 +1,42 @@
 const { axiosInstance, SECRETKEY, bcrypt } = require("../helpers/HttpRequests");
 
 async function signUp(req, res) {
-    let user = {
+    let authSignUp;
+    let hassedPassword;
+    try {
+        hassedPassword = await bcrypt.hash(req.body.password, 10);
+    }
+    catch (error) {
+        throw new Error(error);
+    }
+
+    await axiosInstance.post("auth/signup", {
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: hassedPassword,
         secretKey: SECRETKEY
-    }
-    user = JSON.stringify(user);
-    let authSignUp;
-    await axiosInstance.post("auth/signup", user).then((res) => {
+    }).then((res) => {
         authSignUp = res.data;
+        console.log(authSignUp);
     }).catch((error) => {
     }).then(() => {
-
     });
 }
 
-async function signIn(req, res) {
-    let user = {
-        email: req.body.email,
-        password: await bcrypt.hash(req.body.password, 10),
-        secretKey: SECRETKEY
+async function signIn(req) {
+    let hassedPassword;
+    try {
+        hassedPassword = await bcrypt.hash(req.body.password, 10);
     }
-    user = JSON.stringify(user);
-    console.log(user);
+    catch (error) {
+        throw new Error(error);
+    }
     let authSignIn;
-    await axiosInstance.post("auth/signup", user).then((res) => {
+    await axiosInstance.post("auth/signup", {
+        email: req.body.email,
+        password: hassedPassword,
+        secretKey: SECRETKEY
+    }).then((res) => {
         authSignIn = res.data;
         console.log(authSignIn);
     }).catch((error) => {
