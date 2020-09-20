@@ -3,17 +3,32 @@ const BASEURL = process.env.BASEURL || "localhost.com";
 const SECRETKEY = process.env.SECRETKEY || "secretKey";
 const SECRETKEYURL = "secretKey=" + SECRETKEY;
 const axiosInstance = axios.create({
-    baseURL: BASEURL,
-    headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        "Access-Control-Allow-Origin": "*",
-    }
+    baseURL: BASEURL
 })
 const bcrypt = require('bcrypt');
 
+function getHeader(token) {
+    return {
+        'Authorization': token
+    }
+}
+
+
+function validateCookies(req, res, next) {
+    const { cookies } = req;
+    if ('user' in cookies) {
+        if (cookies.token) {
+            next();
+        }
+        else return res.status(401).render('error', { error: 'Not Authentificated' });
+    } else return res.status(401).render('error', { error: 'Not Authentificated' });
+}
+
 module.exports = {
     SECRETKEYURL: SECRETKEYURL,
-    axiosInstance: axiosInstance ,
-    SECRETKEY : SECRETKEY,
-    bcrypt: bcrypt
+    axiosInstance: axiosInstance,
+    SECRETKEY: SECRETKEY,
+    bcrypt: bcrypt,
+    getHeader: getHeader,
+    validateCookies: validateCookies
 }

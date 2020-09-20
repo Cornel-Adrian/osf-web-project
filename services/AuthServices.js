@@ -1,8 +1,7 @@
 const { axiosInstance, SECRETKEY, bcrypt } = require("../helpers/HttpRequests");
 
-async function signUp(req) {
+async function signUp(req, res) {
     let authSignUp, hassedPassword;
-    console.log("Register");
     try {
         hassedPassword = await bcrypt.hash(req.body.password, 10);
     }
@@ -15,20 +14,15 @@ async function signUp(req) {
         email: req.body.email,
         password: hassedPassword,
         secretKey: SECRETKEY
-    }).then((res) => {
-        authSignUp = res.data;
-        console.log(authSignUp);
-        console.log(res);
+    }).then((response) => {
+        authSignUp = response.data;
     }).catch((error) => {
     }).then(() => {
     });
-    req.session.user = req.body.email;
 }
 
-async function signIn(req) {
+async function signIn(req, res) {
     let authSignIn, hassedEmail, hassedPassword;
-    req.session.user = req.body.email;
-    console.log("Login");
     try {
         hassedEmail = await bcrypt.hash(req.body.email, 10);
         hassedPassword = await bcrypt.hash(req.body.password, 10);
@@ -36,7 +30,6 @@ async function signIn(req) {
     catch (error) {
         throw new Error(error);
     }
-    console.log("Email: " + hassedEmail + " Password: " + hassedPassword);
 
     await axiosInstance({
         method: 'post',
@@ -46,16 +39,13 @@ async function signIn(req) {
             password: req.body.password,
             secretKey: SECRETKEY
         }
-    }).then((res)=>{
-        authSignIn = res.data;
-        req.session.token = authSignIn.token;
-        console.log(authSignIn);
-        console.log(req.session.token);
-    }).catch((error)=>{
-        console.log("Not Logged In");
+    }).then((response) => {
+        authSignIn = response.data;
+        res.cookie('user', authSignIn.user, { maxAge: 900000, httpOnly: true });
+        res.cookie('token', authSignIn.token, { maxAge: 900000, httpOnly: true });
+    }).catch((error) => {
+        throw new Error(error);
     })
-    console.log(req.session.user + "outside await");
-    console.log(req.session.token + "outside await");
 }
 
 module.exports = {

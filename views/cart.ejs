@@ -1,0 +1,13 @@
+<%- include('./partials/header')-%>
+<%- include('./partials/navbar')-%>
+    <h1>Cart</h1>
+    <div class="grid-container">
+        <% if (!(typeof cart == 'undefined')) { %>
+        <% cart.forEach(order => { %>
+        <div class="container">
+            <p><%- order%> </p>
+        </div>
+        <% }) %>
+        <% } %>
+    </div>
+<%- include('./partials/footer')-%>

@@ -2,7 +2,7 @@
 <%- include('./partials/navbar')-%>
 <h1>Categories</h1>
 <div class="grid-container">
-    <% if (categories) { %>
+    <% if (!(typeof categories == 'undefined')) { %>
     <% categories.forEach(category => { %>
     <div class="container">
         <img src="/images/<%- category.image %> " alt="">

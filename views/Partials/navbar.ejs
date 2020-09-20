@@ -2,6 +2,13 @@
     <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/categories">Categories</a></li>
-        <li><%- locals.user %> </li>
-      </ul>
+        <li><a href="/cart">Cart</a></li>
+        <li><a href="/wishlist">Wishlist</a></li>
+        <li><a href="/orders">Orders</a></li>
+        <% if (typeof user == 'undefined') { %>
+        <li><a href="/auth/signin">Sign In</a></li>
+        <% } else { %>
+        <li><%- user.email %> </li>
+        <% } %>
+    </ul>
 </div>

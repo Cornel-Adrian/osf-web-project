@@ -6,7 +6,6 @@ async function getCategoryById(req) {
     await axiosInstance.get("/categories/"+ categoryId + "?" + SECRETKEYURL).then((res) => {
         categoryIdRequest = res.data;
     }).catch((error) => { 
-        console.log(error);
     });
     return categoryIdRequest;
 }

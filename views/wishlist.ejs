@@ -1,0 +1,13 @@
+<%- include('./partials/header')-%>
+<%- include('./partials/navbar')-%>
+    <h1>Wishlist</h1>
+    <div class="grid-container">
+        <% if (!(typeof wishlist == 'undefined')) { %>
+        <% wishlist.forEach(product => { %>
+        <div class="container">
+            <p><%- product%> </p>
+        </div>
+        <% }) %>
+        <% } %>
+    </div>
+<%- include('./partials/footer')-%>

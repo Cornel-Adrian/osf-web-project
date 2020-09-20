@@ -1,8 +1,10 @@
 <%- include('./partials/header')-%>
-
+<%- include('./partials/navbar')-%>
+<h1>Ooops, Something went bad</h1>
 <% if (error) { %>
- <h1><%- error.message %> </h1>
- <h2><%- error.status %> </h2>
+<h1><%- error %></h1>
+<h1><%- error.message %> </h1>
+<h2><%- error.status %> </h2>
 <% } %>
 
 <%- include('./partials/footer')-%>
