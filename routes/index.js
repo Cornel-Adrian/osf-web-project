@@ -1,6 +1,5 @@
 module.exports = function (app) {
   app.get('/', (req, res) => {
-    console.log(req.cookies);
     res.render('index');
   });
 

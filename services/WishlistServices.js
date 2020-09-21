@@ -29,7 +29,6 @@ async function addItemToWishlist(req) {
         headers: header
     }).then((res) => {
         addingItemToWishlistRequest = res.data;
-        console.log(addingItemToWishlistRequest);
     }).catch((error) => { })
     return addingItemToWishlistRequest;
 }
