@@ -1,8 +1,12 @@
 <%- include('./partials/header')-%>
 <%- include('./partials/navbar')-%>
 <h1>Orders</h1>
+<div>
+    <h1>Current Order:</h1>
+</div>
 <div class="grid-container">
     <% if (orders) { %>
+    <h1>Past Orders:</h1>
     <% orders.forEach(order => { %>
     <div class="container">
         <p><%- order%> </p>

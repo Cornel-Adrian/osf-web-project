@@ -3,9 +3,10 @@
     <h1>Cart</h1>
     <div class="grid-container">
         <% if (!(typeof cart == 'undefined')) { %>
-        <% cart.forEach(order => { %>
+        <% cart.forEach(product => { %>
         <div class="container">
-            <p><%- order%> </p>
+            <p><%- product.productId%> </p>
+            <p><%- product.quantity %> </p>
         </div>
         <% }) %>
         <% } %>

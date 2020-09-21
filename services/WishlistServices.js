@@ -1,24 +1,25 @@
 const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helpers/HttpRequests");
 
 
-async function getWishlist(req, res) {
+async function getWishlist(req) {
     let wishlist;
-    let token = req.cookies.token;
-    console.log(token);
+    let token = getHeader(req.cookies.token);
     await axiosInstance.get("wishlist?" + SECRETKEYURL, {
-        headers: { 'Authorization': token }
+        headers: token
     }).then((response) => {
         wishlist = response.data;
-        console.log(wishlist);
     }).catch((error) => {
-        res.render('error', {error: error});
+        if (error.response.data.error == 'There is no wishlist created for this user') {
+            return wishlist;
+        }
+        throw new Error(error);
     });
     return wishlist;
 }
 
 async function addItemToWishlist(req) {
     let addingItemToWishlistRequest;
-    let header = getHeader(req.session.token);
+    let header = getHeader(req.cookies.token);
     await axiosInstance.post('wishlist/addItem', {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -35,7 +36,7 @@ async function addItemToWishlist(req) {
 
 async function removeItemFromWishlist(req) {
     let removeItemFromWishlistRequest;
-    let header = getHeader(req.session.token);
+    let header = getHeader(req.cookies.token);
     await axiosInstance.delete("wishlist/removeItem", {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -52,7 +53,7 @@ async function removeItemFromWishlist(req) {
 
 async function changeItemQuantityWishlist(req) {
     let createOrderRequest;
-    let header = getHeader(req.session.token);
+    let header = getHeader(req.cookies.token);
     await axiosInstance.post("wishlist/changeItemQuantity", {
         secretKey: SECRETKEY,
         productId: req.body.productId,

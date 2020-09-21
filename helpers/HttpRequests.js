@@ -8,9 +8,7 @@ const axiosInstance = axios.create({
 const bcrypt = require('bcrypt');
 
 function getHeader(token) {
-    return {
-        'Authorization': token
-    }
+    return {'authorization': 'Bearer ' + token}
 }
 
 

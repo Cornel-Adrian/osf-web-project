@@ -28,9 +28,8 @@ async function signIn(req, res) {
         hassedPassword = await bcrypt.hash(req.body.password, 10);
     }
     catch (error) {
-        throw new Error(error);
+        throw error;
     }
-
     await axiosInstance({
         method: 'post',
         url: 'auth/signin',
@@ -44,7 +43,9 @@ async function signIn(req, res) {
         res.cookie('user', authSignIn.user, { maxAge: 900000, httpOnly: true });
         res.cookie('token', authSignIn.token, { maxAge: 900000, httpOnly: true });
     }).catch((error) => {
-        throw new Error(error);
+        if (error.response.data.error === "Invalid Password" || error.response.data.error === "User not found") {
+            return res.status(400).render('signin', {error: error});
+        }
     })
 }
 

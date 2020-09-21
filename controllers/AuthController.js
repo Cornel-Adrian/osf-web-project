@@ -1,13 +1,13 @@
 const authService = require('../services/AuthServices');
 
 async function signUp(req, res) {
-    const user = await authService.signUp(req, res);
+    await authService.signUp(req, res);
     return res.redirect('signin');
 
 }
 
 async function signIn(req, res) {
-    const user = await authService.signIn(req, res);
+    await authService.signIn(req, res);
     return res.redirect('/');
 }
 

@@ -9,21 +9,27 @@ async function productSearch(req, res) {
         let product;
         await axiosInstance.get("/products/product_search?id=" + id + "&" + SECRETKEYURL).then((res) => {
             product = res.data;
-        }).catch((error) => { });
+        }).catch((error) => {
+            res.render('error', { error: error });
+        });
         return product;
     }
     if (page) {
         let productPage;
         await axiosInstance.get("/products/product_search?page=" + page + "&" + SECRETKEYURL).then((res) => {
             productPage = res.data;
-        }).catch((erorr) => { });
+        }).catch((error) => {
+            res.render('error', { error: error });
+        });
         return productPage;
     }
     if (primaryCategoryId) {
         let productCategory;
         await axiosInstance.get("/products/product_search?primary_category_id=" + primaryCategoryId + "&" + SECRETKEYURL).then((res) => {
             productCategory = res.data;
-        }).catch((error) => { });
+        }).catch((error) => {
+            res.render('error', {error: error});
+         });
         return productCategory;
     }
 }

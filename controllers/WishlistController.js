@@ -1,7 +1,7 @@
 const wishlistServices = require('../services/WishlistServices');
 
 async function getWishlist(req, res) {
-    const wishlist = await wishlistServices.getWishlist(req, res);
+    const wishlist = await wishlistServices.getWishlist(req);
     return res.render('wishlist', { wishlist: wishlist});
 }
 

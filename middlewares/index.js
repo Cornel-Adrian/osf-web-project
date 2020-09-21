@@ -3,7 +3,10 @@ module.exports = function (app, express, cookieParser) {
     const SENTRYDSN = process.env.SENTRYDSN;
     const bodyParser = require('body-parser');
     const session = require('express-session');
-
+    Sentry.init({
+        dsn: SENTRYDSN,
+        tracesSampleRate: 1.0,
+    });
 
     app.use(Sentry.Handlers.requestHandler());
     app.use(Sentry.Handlers.errorHandler());
@@ -14,19 +17,29 @@ module.exports = function (app, express, cookieParser) {
     app.use(express.json());
     app.use(cookieParser());
     app.use(session({
-        secret:'secret',
-        cookie:{ maxAge: 60000},
+        secret: 'secret',
+        cookie: { maxAge: 60000 },
         saveUninitialized: false,
         resave: true
     }))
 
-    Sentry.init({
-        dsn: SENTRYDSN,
-        tracesSampleRate: 1.0,
-    });
-
     app.use((req, res, next) => {
         res.locals.user = req.cookies.user;
         next();
+    });
+
+    // fallthrough error handler
+    app.use(function onError(error, req, res, next) {
+        // The error id is attached to `res.sentry` to be returned
+        // and optionally displayed to the user for support.
+        if (res.statusCode(401)) {
+            return res.render('error', { error: error });
+        }
+
+        res.statusCode = 500;
+        res.locals.error = error;
+        res.render('error', { error: error });
+        Sentry.captureException(e);
+        res.end(res.sentry + '\n');
     });
 }
