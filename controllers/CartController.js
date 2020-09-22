@@ -6,17 +6,17 @@ async function getCart(req, res) {
 }
 
 async function addItemToCart(req, res) {
-    const cart = await cartServices.addItemToCart(req);
+    await cartServices.addItemToCart(req);
     return res.redirect('cart');
 }
 
 async function deleteItemFromCart(req, res) {
-    const cart = await cartServices.removeItem(req);
+    await cartServices.removeItem(req);
     return res.redirect('cart');
 }
 
 async function changeItemQuantity(req, res) {
-    const cart = await cartServices.changeItemQuantity(req);
+    await cartServices.changeItemQuantity(req);
     return res.redirect('cart');
 }
 

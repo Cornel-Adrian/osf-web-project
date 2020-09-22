@@ -30,23 +30,29 @@ async function signIn(req, res) {
     catch (error) {
         throw error;
     }
-    await axiosInstance({
-        method: 'post',
-        url: 'auth/signin',
-        data: {
-            email: req.body.email,
-            password: req.body.password,
-            secretKey: SECRETKEY
-        }
-    }).then((response) => {
-        authSignIn = response.data;
-        res.cookie('user', authSignIn.user, { maxAge: 900000, httpOnly: true });
-        res.cookie('token', authSignIn.token, { maxAge: 900000, httpOnly: true });
-    }).catch((error) => {
-        if (error.response.data.error === "Invalid Password" || error.response.data.error === "User not found") {
-            return res.status(400).render('signin', {error: error});
-        }
-    })
+    try {
+        await axiosInstance({
+            method: 'post',
+            url: 'auth/signin',
+            data: {
+                email: req.body.email,
+                password: req.body.password,
+                secretKey: SECRETKEY
+            }
+        }).then((response) => {
+            authSignIn = response.data;
+            res.cookie('user', authSignIn.user, { maxAge: 900000, httpOnly: true });
+            res.cookie('token', authSignIn.token, { maxAge: 900000, httpOnly: true });
+        }).catch((error) => {
+            if (error.response.data.error === "Invalid Password" || error.response.data.error === "User not found") {
+                return res.status(400).render('signin', { error: error });
+            }
+        })
+    }
+    catch( error)
+    {
+        res.render('sigin', { error: error });
+    }
 }
 
 module.exports = {

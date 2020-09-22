@@ -1,3 +1,4 @@
+const { errorHandler } = require("@sentry/node/dist/handlers");
 const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helpers/HttpRequests");
 
 
@@ -9,15 +10,22 @@ async function getCart(req) {
     }).then((res) => {
         cart = res.data.items;
     }).catch((error) => {
-        // throw new Error (error);
+        throw new Error(error);
     });
     return cart;
 }
 
 async function addItemToCart(req) {
     let addingItemRequest;
+    let itemToAdd = {
+        secretKey: SECRETKEY,
+        productId: req.body.productId,
+        variantId: req.body.variantId,
+        quantity: req.body.quantity
+    }
+    console.log(itemToAdd);
     let header = getHeader(req.cookies.token);
-    await axiosInstance.post('cart/addItem', {
+    await axiosInstance.post('/cart/addItem', {
         secretKey: SECRETKEY,
         productId: req.body.productId,
         variantId: req.body.variantId,
@@ -28,8 +36,7 @@ async function addItemToCart(req) {
         addingItemRequest = res.data;
     }).catch((error) => {
         throw new Error(error);
-     })
-    return addingItemRequest;
+    })
 }
 
 async function removeItem(req) {

@@ -23,6 +23,7 @@ module.exports = function (app, express, cookieParser) {
         resave: true
     }))
 
+    //Send information via cookies
     app.use((req, res, next) => {
         res.locals.user = req.cookies.user;
         next();
@@ -35,7 +36,6 @@ module.exports = function (app, express, cookieParser) {
         if (res.statusCode(401)) {
             return res.render('error', { error: error });
         }
-
         res.statusCode = 500;
         res.locals.error = error;
         res.render('error', { error: error });

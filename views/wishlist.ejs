@@ -5,7 +5,8 @@
         <% if (!(typeof wishlist == 'undefined')) { %>
         <% wishlist.forEach(product => { %>
         <div class="container">
-            <p><%- product%> </p>
+            <p><%- product.productId%> </p>
+            <p><%- product.quantity %> </p>
         </div>
         <% }) %>
         <% } %>

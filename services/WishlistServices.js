@@ -1,4 +1,4 @@
-const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helpers/HttpRequests");
+const { axiosInstance, SECRETKEYURL, getHeader, getHeaderWithJson, SECRETKEY } = require("../helpers/HttpRequests");
 
 
 async function getWishlist(req) {
@@ -7,7 +7,8 @@ async function getWishlist(req) {
     await axiosInstance.get("wishlist?" + SECRETKEYURL, {
         headers: token
     }).then((response) => {
-        wishlist = response.data;
+        wishlist = response.data.items;
+        console.log(wishlist);
     }).catch((error) => {
         if (error.response.data.error == 'There is no wishlist created for this user') {
             return wishlist;
@@ -18,24 +19,27 @@ async function getWishlist(req) {
 }
 
 async function addItemToWishlist(req) {
-    let addingItemToWishlistRequest;
-    let header = getHeader(req.cookies.token);
-    await axiosInstance.post('wishlist/addItem', {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId,
-        quantity: req.body.quantity
-    }, {
-        headers: header
-    }).then((res) => {
-        addingItemToWishlistRequest = res.data;
-    }).catch((error) => { })
-    return addingItemToWishlistRequest;
+    let header = getHeaderWithJson(req.cookies.token);
+    await axiosInstance(
+        {
+            method:'post',
+            url:'/wishlist/addItem',
+            data:{
+                secretKey: SECRETKEY,
+                productId: req.body.productId,
+                variantId: req.body.variantId,
+                quantity: req.body.quantity
+            },
+            headers: header
+        }
+    ).then((res) => {
+        console.log(res.data);
+    }).catch((error) => { throw new Error(error) });
 }
 
 async function removeItemFromWishlist(req) {
     let removeItemFromWishlistRequest;
-    let header = getHeader(req.cookies.token);
+    let header = getHeaderWithJson(req.cookies.token);
     await axiosInstance.delete("wishlist/removeItem", {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -45,14 +49,13 @@ async function removeItemFromWishlist(req) {
     }).then((res) => {
         removeItemFromWishlistRequest = res.data;
     }).catch((error) => {
+        throw new Error(error);
     });
-    return removeItemFromWishlistRequest;
 }
 
 
 async function changeItemQuantityWishlist(req) {
-    let createOrderRequest;
-    let header = getHeader(req.cookies.token);
+    let header = getHeaderWithJson(req.cookies.token);
     await axiosInstance.post("wishlist/changeItemQuantity", {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -60,10 +63,9 @@ async function changeItemQuantityWishlist(req) {
     }, {
         headers: header
     }).then((res) => {
-        createOrderRequest = res.data;
     }).catch((error) => {
+        throw new Error(error);
     });
-    return createOrderRequest;
 }
 
 

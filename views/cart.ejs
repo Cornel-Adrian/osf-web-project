@@ -1,7 +1,14 @@
 <%- include('./partials/header')-%>
 <%- include('./partials/navbar')-%>
-    <h1>Cart</h1>
-    <div class="grid-container">
+<h1>Checkout</h1>
+<form action="/orders" method="POST">
+    <label>Adress:</label>
+    <input type="text" name="adress"></input>
+    <br>
+    <label>Payment Id:</label>
+    <input type="text" name="paymentId"></input>
+    <br>
+    <div class="grid-container" name="items">
         <% if (!(typeof cart == 'undefined')) { %>
         <% cart.forEach(product => { %>
         <div class="container">
@@ -11,4 +18,6 @@
         <% }) %>
         <% } %>
     </div>
+    <button type="submit">Place Order</button>
+</form>
 <%- include('./partials/footer')-%>

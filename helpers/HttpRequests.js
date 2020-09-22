@@ -8,8 +8,17 @@ const axiosInstance = axios.create({
 const bcrypt = require('bcrypt');
 
 function getHeader(token) {
-    return {'authorization': 'Bearer ' + token}
+    return { 'authorization': 'Bearer ' + token }
 }
+
+
+function getHeaderWithJson(token) {
+    return {
+        'authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    }
+}
+
 
 
 function validateCookies(req, res, next) {
@@ -28,5 +37,6 @@ module.exports = {
     SECRETKEY: SECRETKEY,
     bcrypt: bcrypt,
     getHeader: getHeader,
-    validateCookies: validateCookies
+    validateCookies: validateCookies,
+    getHeaderWithJson:getHeaderWithJson
 }

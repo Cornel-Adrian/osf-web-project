@@ -6,17 +6,17 @@ async function getWishlist(req, res) {
 }
 
 async function addItemToWishlist(req, res) {
-    const addItem = await wishlistServices.addItemToWishlist(req);
+    await wishlistServices.addItemToWishlist(req);
     return res.redirect('/');
 }
 
 async function deleteItemFromWishlist(req, res) {
-    const deleteItem = await wishlistServices.removeItemFromWishlist(req, res);
+    await wishlistServices.removeItemFromWishlist(req, res);
     return res.redirect('/');
 }
 
 async function changeItemQuantity(req, res) {
-    const changeItemQuantity = await wishlistServices.changeItemQuantityWishlist(req, res);
+    await wishlistServices.changeItemQuantityWishlist(req, res);
     return res.redirect('/');
 }
 

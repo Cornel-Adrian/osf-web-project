@@ -6,7 +6,7 @@
     <% categories.forEach(category => { %>
     <div class="container">
         <img src="/images/<%- category.image %> " alt="">
-        <a  href="/categories/<%- category.id %>"><strong></strong> <%- category.id %> </a>
+        <a  href="/categories/parent/<%- category.id %>"><strong></strong> <%- category.id %> </a>
         <p><%- category.page_description %> </p>
     </div>
     <% }) %>
