@@ -1,22 +1,22 @@
 const cartServices = require('../services/CartServices');
 
-async function getCart(req, res) {
-    const cart = await cartServices.getCart(req);
+async function getCart(req, res, next) {
+    const cart = await cartServices.getCart(req, res, next);
     return res.render('cart', { cart: cart});
 }
 
-async function addItemToCart(req, res) {
-    await cartServices.addItemToCart(req);
+async function addItemToCart(req, res, next) {
+    await cartServices.addItemToCart(req, res, next);
     return res.redirect('cart');
 }
 
-async function deleteItemFromCart(req, res) {
-    await cartServices.removeItem(req);
+async function deleteItemFromCart(req, res, next) {
+    await cartServices.removeItem(req, res, next);
     return res.redirect('cart');
 }
 
-async function changeItemQuantity(req, res) {
-    await cartServices.changeItemQuantity(req);
+async function changeItemQuantity(req, res, next) {
+    await cartServices.changeItemQuantity(req, res, next);
     return res.redirect('cart');
 }
 

@@ -1,29 +1,21 @@
-const { errorHandler } = require("@sentry/node/dist/handlers");
 const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helpers/HttpRequests");
 
 
-async function getCart(req) {
+async function getCart(req, res, next) {
     let cart;
     let header = getHeader(req.cookies.token);
     await axiosInstance.get("cart?" + SECRETKEYURL, {
         headers: header
-    }).then((res) => {
-        cart = res.data.items;
+    }).then((response) => {
+        cart = response.data.items;
     }).catch((error) => {
-        throw new Error(error);
+        next(error);
+        res.render('error', {error: error.response.data.error});
     });
     return cart;
 }
 
-async function addItemToCart(req) {
-    let addingItemRequest;
-    let itemToAdd = {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId,
-        quantity: req.body.quantity
-    }
-    console.log(itemToAdd);
+async function addItemToCart(req, res, next) {
     let header = getHeader(req.cookies.token);
     await axiosInstance.post('/cart/addItem', {
         secretKey: SECRETKEY,
@@ -32,15 +24,14 @@ async function addItemToCart(req) {
         quantity: req.body.quantity
     }, {
         headers: header
-    }).then((res) => {
-        addingItemRequest = res.data;
+    }).then((response) => {
     }).catch((error) => {
-        throw new Error(error);
+        next(error);
+        res.render('error', {error: error.response.data.error});
     })
 }
 
-async function removeItem(req) {
-    let removeItemRequest;
+async function removeItem(req, res, next) {
     let header = getHeader(req.cookies.token);
     await axiosInstance.delete("cart/removeItem", {
         secretKey: SECRETKEY,
@@ -48,17 +39,16 @@ async function removeItem(req) {
         variantId: req.body.variantId
     }, {
         headers: header
-    }).then((res) => {
-        removeItemRequest = res.data;
+    }).then((response) => {
+        removeItemRequest = response.data;
     }).catch((error) => {
-        res.render('error', { error: error });
+        next(error);
+        res.render('error', {error: error.response.data.error});
     });
-    return removeItemRequest;
 }
 
 
-async function changeItemQuantity(req) {
-    let createOrderRequest;
+async function changeItemQuantity(req, res, next) {
     let header = getHeader(req.cookies.token);
     await axiosInstance.post("cart/changeItemQuantity", {
         secretKey: SECRETKEY,
@@ -69,9 +59,9 @@ async function changeItemQuantity(req) {
     }).then((res) => {
         createOrderRequest = res.data;
     }).catch((error) => {
-        res.render('error', { error: error });
+        next(error);
+        res.render('error', {error: error.response.data.error});
     });
-    return createOrderRequest;
 }
 
 

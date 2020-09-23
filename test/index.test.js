@@ -4,6 +4,9 @@ const chaiHttp = require("chai-http");
 const { SECRETKEY } = require('../helpers/HttpRequests')
 
 const { expect } = chai;
+// asertion style
+chai.should();
+
 chai.use(chaiHttp);
 describe("Server!", () => {
     it("Check localhost", done => {
@@ -11,9 +14,7 @@ describe("Server!", () => {
             .request(app)
             .get("/")
             .end((err, res) => {
-                expect(res).to.have.status(200);
-                // expect(res.body.status).to.equals("success");
-                // expect(res.body.message).to.equals("Welcome To Testing API");
+                res.should.have.status(200);
                 done();
             });
     });
@@ -27,7 +28,7 @@ describe("Categories tests", () => {
             .request(app)
             .get("/categories")
             .end((err, res) => {
-                expect(res).to.have.status(200);
+                res.should.have.status(200);
                 done();
             });
     });
@@ -37,7 +38,7 @@ describe("Categories tests", () => {
             .request(app)
             .get("/categories/parent/mens-clothing")
             .end((err, res) => {
-                expect(res).to.have.status(200);
+                res.should.have.status(200);
                 done();
             });
     });

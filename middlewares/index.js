@@ -32,11 +32,7 @@ module.exports = function (app, express, cookieParser) {
     // fallthrough error handler
     app.use(function onError(error, req, res, next) {
         // The error id is attached to `res.sentry` to be returned
-        // and optionally displayed to the user for support.
-        if (res.statusCode(401)) {
-            return res.render('error', { error: error });
-        }
-        res.statusCode = 500;
+        // and optionally displayed to the user for support
         res.locals.error = error;
         res.render('error', { error: error });
         Sentry.captureException(e);

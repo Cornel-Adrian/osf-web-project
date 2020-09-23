@@ -8,7 +8,8 @@
         <% if (typeof user == 'undefined') { %>
         <li><a href="/auth/signin">Sign In</a></li>
         <% } else { %>
-        <li><%- user.email %> </li>
+        <li><a><%- user.email %></a></li>
+        <li><a href="/auth/signout">Log out</a></li>
         <% } %>
     </ul>
 </div>
