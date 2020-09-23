@@ -12,12 +12,12 @@ async function addItemToCart(req, res, next) {
 
 async function deleteItemFromCart(req, res, next) {
     await cartServices.removeItem(req, res, next);
-    return res.redirect('cart');
+    return res.redirect('/');
 }
 
 async function changeItemQuantity(req, res, next) {
     await cartServices.changeItemQuantity(req, res, next);
-    return res.redirect('cart');
+    return res.redirect('/');
 }
 
 

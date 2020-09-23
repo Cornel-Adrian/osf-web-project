@@ -17,6 +17,7 @@ async function getCart(req, res, next) {
 
 async function addItemToCart(req, res, next) {
     let header = getHeader(req.cookies.token);
+    console.log(req.headers);
     await axiosInstance.post('/cart/addItem', {
         secretKey: SECRETKEY,
         productId: req.body.productId,

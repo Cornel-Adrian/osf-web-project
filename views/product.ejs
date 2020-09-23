@@ -1,7 +1,7 @@
 <%- include('./partials/header')-%>
 <%- include('./partials/navbar')-%>
 <link rel="stylesheet" type="text/css" href="/stylesheets/product-list.style.css" />
-<div class="grid-container">
+<div>
     <% if (product) { %>
     <h1><%-product.name  %> </h1>
     <div class="container">
@@ -9,6 +9,24 @@
             alt="<%- product.image_groups[0].images[0].alt %>">
         <h2><%- product.page_description %> </h2>
         <h2>Price:<%- product.price %> <%- product.currency %> </h2>
+        <br>
+        <br>
+        <form action="/cart/addItem" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="productId" value="<%- product.id %>">
+            <% if (!(typeof product.variants == 'undefined')) { %>
+            <label>Variants:</label>
+            <label for="variant">Choose a Variant:</label>
+            <select id="variant" name="variantId">
+                <% product.variants.forEach(variant => { %>
+                <option value="<%- variant.product_id %>"><%- variant.product_id %></option>
+                <% }) %>
+            </select>
+            <% } %>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity">
+            <br>
+            <button type="submit">Buy Now</button>
+        </form>
     </div>
     <% } %>
 </div>

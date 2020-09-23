@@ -3,18 +3,19 @@
 <h1>Checkout</h1>
 <form action="/orders" method="POST">
     <label>Adress:</label>
-    <input type="text" name="adress"></input>
+    <input type="text" name="address"></input>
     <br>
     <label>Payment Id:</label>
     <input type="text" name="paymentId"></input>
     <br>
-    <div class="grid-container" name="items">
+    <div name="items">
         <% if (!(typeof cart == 'undefined')) { %>
         <% cart.forEach(product => { %>
         <div class="container">
-            <p><%- product.productId%> </p>
-            <p><%- product.quantity %> </p>
+            <p>Product ID: <%- product.productId%> </p>
+            <p>Product Quantity: <%- product.quantity %> </p>
         </div>
+        <br>
         <% }) %>
         <% } %>
     </div>

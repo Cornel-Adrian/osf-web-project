@@ -2,7 +2,7 @@
 <%- include('./partials/navbar')-%>
 <h1>Orders</h1>
 <br>
-<div class="grid-container">
+<div>
     <% if (orders) { %>
     <h1>Past Orders:</h1>
     <% orders.forEach(order => { %>
@@ -17,6 +17,8 @@
          <li>Price: <%- element.variant.price %> </li>
         <% }) %>
     </div>
+    <br>
+    <br>
     <% }) %>
     <% } %>
 </div>
