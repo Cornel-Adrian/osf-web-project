@@ -10,7 +10,6 @@ async function getWishlist(req, res, next) {
         wishlist = response.data.items;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
     return wishlist;
 }
@@ -32,7 +31,6 @@ async function addItemToWishlist(req, res, next) {
     ).then((response) => {
     }).catch((error) => {
         next(error);
-        res.render('error', { error: error.response.data.error });
     });
 }
 
@@ -49,7 +47,6 @@ async function removeItemFromWishlist(req, res, next) {
         removeItemFromWishlistRequest = response.data;
     }).catch((error) => {
         next(error);
-        res.render('error', { error: error.response.data.error });
     });
 }
 

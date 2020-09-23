@@ -29,7 +29,6 @@ async function productSearch(req, res, next) {
             productCategory = response.data;
         }).catch((error) => {
             next(error);
-            res.render('error', { error: error.response.data.error });
         });
         return productCategory;
     }
@@ -44,7 +43,6 @@ async function getProductById(req, res, next) {
             product = response.data[0];
         }).catch((error) => {
             next(error);
-            res.render('error', { error: error.response.data.error });
         });
         return product;
     }

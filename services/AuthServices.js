@@ -18,7 +18,6 @@ async function signUp(req, res, next) {
         authSignUp = response.data;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     }).then(() => {
     });
 }
@@ -46,7 +45,6 @@ async function signIn(req, res, next) {
         res.cookie('token', authSignIn.token, { maxAge: 900000, httpOnly: true });
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     })
 }
 

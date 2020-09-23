@@ -10,7 +10,6 @@ async function getOrders(req, res, next) {
         orderResponse = res.data;
     }).catch((error) => {
         next(error);
-        res.render('error', { error: error.response.data.error });
     });
     return orderResponse;
 }
@@ -39,7 +38,6 @@ async function createOrder(req, res, next) {
         orderCreateResponse = response.data;
     }).catch((error) => {
         next(error);
-        res.render('error', { error: error.response.data.error });
         return;
     })
 

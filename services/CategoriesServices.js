@@ -19,7 +19,6 @@ async function getCategoriesByParentId(req, res, next) {
         categoryParentIdRequest = response.data;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
     return categoryParentIdRequest;
 }
@@ -30,7 +29,6 @@ async function getAllCategories(req, res, next) {
         categories = response.data;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
     return categories;
 

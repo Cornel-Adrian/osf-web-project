@@ -7,17 +7,17 @@ async function getCart(req, res, next) {
 
 async function addItemToCart(req, res, next) {
     await cartServices.addItemToCart(req, res, next);
-    return res.redirect('cart');
+    return res.render('cart');
 }
 
 async function deleteItemFromCart(req, res, next) {
     await cartServices.removeItem(req, res, next);
-    return res.redirect('/');
+    return res.render('cart');
 }
 
 async function changeItemQuantity(req, res, next) {
     await cartServices.changeItemQuantity(req, res, next);
-    return res.redirect('/');
+    return res.render('cart');
 }
 
 

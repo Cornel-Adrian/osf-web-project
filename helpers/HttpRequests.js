@@ -20,7 +20,6 @@ function getHeaderWithJson(token) {
 }
 
 
-
 function validateCookies(req, res, next) {
     const { cookies } = req;
     if ('user' in cookies) {
@@ -38,5 +37,5 @@ module.exports = {
     bcrypt: bcrypt,
     getHeader: getHeader,
     validateCookies: validateCookies,
-    getHeaderWithJson:getHeaderWithJson
+    getHeaderWithJson: getHeaderWithJson
 }

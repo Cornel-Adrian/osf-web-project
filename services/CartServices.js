@@ -10,14 +10,12 @@ async function getCart(req, res, next) {
         cart = response.data.items;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
     return cart;
 }
 
 async function addItemToCart(req, res, next) {
     let header = getHeader(req.cookies.token);
-    console.log(req.headers);
     await axiosInstance.post('/cart/addItem', {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -28,7 +26,6 @@ async function addItemToCart(req, res, next) {
     }).then((response) => {
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     })
 }
 
@@ -44,7 +41,6 @@ async function removeItem(req, res, next) {
         removeItemRequest = response.data;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
 }
 
@@ -61,7 +57,6 @@ async function changeItemQuantity(req, res, next) {
         createOrderRequest = res.data;
     }).catch((error) => {
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
 }
 
