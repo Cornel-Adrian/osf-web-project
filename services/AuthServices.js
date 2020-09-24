@@ -41,10 +41,11 @@ async function signIn(req, res, next) {
         }
     }).then((response) => {
         authSignIn = response.data;
-        res.cookie('user', authSignIn.user, { maxAge: 900000, httpOnly: true });
-        res.cookie('token', authSignIn.token, { maxAge: 900000, httpOnly: true });
+        res.cookie('user', authSignIn.user, { maxAge: 9000000, httpOnly: true });
+        res.cookie('token', authSignIn.token, { maxAge: 9000000, httpOnly: true });
     }).catch((error) => {
-        next(error);
+        console.log(error.body);
+        // next(error);
     })
 }
 

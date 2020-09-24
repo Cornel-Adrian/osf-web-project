@@ -2,7 +2,7 @@
 <%- include('./partials/navbar')-%>
 
 
-<% if (typeof mainCategory == 'undefined' || mainCategory=='') { %>
+<% if (typeof mainCategory == 'undefined') { %>
 <h1>Main Category</h1>
 <% } else { %>
 <div>
@@ -13,15 +13,13 @@
 
 <h1>Subcategories</h1>
 <div class="grid-container">
-    <% if (typeof subCategories == 'undefined' || subCategories=='') { %>
-    <h2>Nothing to show for now</h2>
-    <% } else { %>
+    <% if (!(typeof subCategories == 'undefined')) { %>
     <% subCategories.forEach(category => { %>
     <div class="container">
         <img src="/images/<%- category.image %> " alt="">
         <br>
         <p><%- category.page_description %> </p>
-        <a href="/subcategory/<%- category.id %>"><strong>View Subcategories</strong></a>
+        <a href="subcategory/<%- category.id %>"><strong>View Subcategories</strong></a>
     </div>
     <% }) %>
     <% } %>

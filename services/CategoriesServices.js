@@ -1,23 +1,38 @@
 const { axiosInstance, SECRETKEYURL } = require("../helpers/HttpRequests");
 
 async function getCategoryById(req, res, next) {
-    let categoryId = req.params.id;
+    let categoryId;
+    if (!req.query) {
+        categoryId = 'mens';
+    }
+    else {
+        categoryId = req.query.category;
+    }
+
     let categoryIdRequest;
     await axiosInstance.get("/categories/" + categoryId + "?" + SECRETKEYURL).then((response) => {
         categoryIdRequest = response.data;
     }).catch((error) => {
+        categoryIdRequest='';
         next(error);
-        res.render('error', {error: error.response.data.error});
     });
     return categoryIdRequest;
 }
 
 async function getCategoriesByParentId(req, res, next) {
-    let parentId = req.params.id;
+    let parentId;
+    if (!req.query.category) {
+        parentId = "mens";
+    }
+    else {
+        parentId = req.query.category;
+    }
+
     let categoryParentIdRequest;
     await axiosInstance.get("/categories/parent/" + parentId + "?" + SECRETKEYURL).then((response) => {
         categoryParentIdRequest = response.data;
     }).catch((error) => {
+        categoryParentIdRequest='';
         next(error);
     });
     return categoryParentIdRequest;

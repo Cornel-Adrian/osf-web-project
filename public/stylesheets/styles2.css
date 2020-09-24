@@ -6,9 +6,13 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: auto auto;
   grid-gap: 10px;
   padding: 10px;
+}
+
+.grid-container > h2{
+  text-align: left;
 }
 
 .grid-container > div {
@@ -63,6 +67,17 @@ li a:hover:not(.active) {
 
 .active {
   background-color: #4CAF50;
+}
+
+.headerStyle{
+  border: 3px solid black;
+  margin: auto;
+}
+
+footer{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: large;
+    clear: both;
 }
 
 

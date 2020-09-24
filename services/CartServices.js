@@ -3,19 +3,22 @@ const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helper
 
 async function getCart(req, res, next) {
     let cart;
+    console.log(req.cookies);
     let header = getHeader(req.cookies.token);
     await axiosInstance.get("cart?" + SECRETKEYURL, {
         headers: header
     }).then((response) => {
-        cart = response.data.items;
+        return cart = response.data.items;
     }).catch((error) => {
-        next(error);
+        console.log("The funcking Error:" +error);
+        return next(error);
     });
     return cart;
 }
 
 async function addItemToCart(req, res, next) {
     let header = getHeader(req.cookies.token);
+    console.log("Product ID:" + req.body.productId + "  Quantity:" + req.body.quantity);
     await axiosInstance.post('/cart/addItem', {
         secretKey: SECRETKEY,
         productId: req.body.productId,

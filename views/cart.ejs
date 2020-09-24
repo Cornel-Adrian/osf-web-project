@@ -9,15 +9,19 @@
     <input type="text" name="paymentId"></input>
     <br>
     <div name="items">
+        <% var PriceSum = 0;  %>
         <% if (!(typeof cart == 'undefined')) { %>
         <% cart.forEach(product => { %>
+            <% PriceSum =+ product.variant.price %> 
         <div class="container">
             <p>Product ID: <%- product.productId%> </p>
             <p>Product Quantity: <%- product.quantity %> </p>
+            <p>Product Price: <%- product.variant.price %> </p>
         </div>
         <br>
         <% }) %>
         <% } %>
+        <h1>Total Price: <%- PriceSum %> USD </h1>
     </div>
     <button type="submit">Place Order</button>
 </form>

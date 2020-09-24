@@ -1,9 +1,29 @@
 <%- include('./partials/header')-%>
+<%- include('./partials/navbar')-%>
 
-
-<% if (category) { %>
-<h1><%- category.name %> </h1>
-<p><%- category.page_description %> </p>
+<% if (typeof category == 'undefined') { %>
+<h1>Category</h1>
+<% } else { %>
+<div>
+    <h1><%-category.name %></h1>
+    <p><%- category.page_description %> </p>
+</div>
 <% } %>
+
+<h1>Products</h1>
+<div class="grid-container">
+    <% if (products) { %>
+    <% products.forEach(product => { %>
+    <div class="container">
+        <h2><strong><%-product.name  %> </strong></h2>
+        <img src="/images/<%- product.image_groups[0].images[0].link %>"
+            alt="<%- product.image_groups[0].images[0].alt %>">
+        <p><%- product.page_description %> </p>
+        <p>Price:<%- product.price %> <%- product.currency %> </p>
+        <a href="/product/<%- product.id %> ">More Info</a>
+    </div>
+    <% }) %>
+    <% } %>
+</div>
 
 <%- include('./partials/footer')-%>

@@ -48,7 +48,21 @@ async function getProductById(req, res, next) {
     }
 }
 
+async function getProductByParentId(req, res, next) {
+    let id = req.params.id;
+    if (id) {
+        let products;
+        await axiosInstance.get("/products/product_search?primary_category_id=" + id + "&" + SECRETKEYURL).then((response) => {
+            products = response.data;
+        }).catch((error) => {
+            next(error);
+        });
+        return products;
+    }
+}
+
 module.exports = {
     productSearch: productSearch,
-    getProductById: getProductById
+    getProductById: getProductById,
+    getProductByParentId:getProductByParentId
 }
