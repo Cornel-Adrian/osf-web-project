@@ -3,22 +3,22 @@ const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helper
 
 async function getCart(req, res, next) {
     let cart;
-    console.log(req.cookies);
-    let header = getHeader(req.cookies.token);
+    let header = getHeader(req.cookies.token) || "";
     await axiosInstance.get("cart?" + SECRETKEYURL, {
         headers: header
     }).then((response) => {
         return cart = response.data.items;
     }).catch((error) => {
-        console.log("The funcking Error:" +error);
-        return next(error);
+        cart = [];
+    }).then(() => {
+        return cart;
     });
     return cart;
 }
 
 async function addItemToCart(req, res, next) {
+    if (!req.body) { return next(); }
     let header = getHeader(req.cookies.token);
-    console.log("Product ID:" + req.body.productId + "  Quantity:" + req.body.quantity);
     await axiosInstance.post('/cart/addItem', {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -33,7 +33,8 @@ async function addItemToCart(req, res, next) {
 }
 
 async function removeItem(req, res, next) {
-    let header = getHeader(req.cookies.token);
+    if (!req.body) { return next(); }
+    let header = getHeader(req.cookies.token) || '';
     await axiosInstance.delete("cart/removeItem", {
         secretKey: SECRETKEY,
         productId: req.body.productId,
@@ -49,7 +50,8 @@ async function removeItem(req, res, next) {
 
 
 async function changeItemQuantity(req, res, next) {
-    let header = getHeader(req.cookies.token);
+    if (!req.body) { return next(); }
+    let header = getHeader(req.cookies.token) || '';
     await axiosInstance.post("cart/changeItemQuantity", {
         secretKey: SECRETKEY,
         productId: req.body.productId,

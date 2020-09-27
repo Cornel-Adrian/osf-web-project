@@ -3,8 +3,6 @@ const routes = express.Router();
 const MainController = require('../controllers/MainController');
 
 
-//routes.get('/', MainController.getMainCategoryElements);
-
 routes.get('/subcategory/:id', MainController.getSubCategoriesElements);
 routes.get('/category/:id', MainController.getCategoryProducts);
 

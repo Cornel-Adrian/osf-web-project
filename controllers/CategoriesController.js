@@ -16,7 +16,7 @@ async function getAllCategories(req, res, next) {
 }
 
 module.exports = {
-    getCategoriesForMain: getCategoryByID,
+    getCategoryByID: getCategoryByID,
     getCategoryByParentID: getCategoryByParentID,
     getAllCategories: getAllCategories
 }

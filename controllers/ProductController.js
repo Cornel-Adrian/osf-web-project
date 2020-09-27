@@ -18,9 +18,15 @@ async function buyProduct(req,res,next)
     return res.redirect('/');
 }
 
+async function addItemToWishlist(req, res, next) {
+    await wishlistServices.addItemToWishlist(req, res, next);
+    return res.redirect('/');
+}
+
 module.exports = {
     // productSearch: productSearch,
     getProductById:getProductById,
-    buyProduct:buyProduct
+    buyProduct:buyProduct,
+    addItemToWishlist: addItemToWishlist
   }
   

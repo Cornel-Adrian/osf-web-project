@@ -58,19 +58,9 @@ describe("Products checks", () => {
     it("Product search by ID", done => {
         chai
             .request(app)
-            .get('/products/product_search?id=25565189')
+            .get('/product/21736758')
             .end((err, res) => {
-                expect(res).to.have.status(200);
-                done();
-            })
-    });
-
-    it("Product search by Page", done => {
-        chai
-            .request(app)
-            .get('/products/product_search?page=2')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
+                res.should.have.status(200);
                 done();
             })
     });
@@ -78,35 +68,23 @@ describe("Products checks", () => {
     it("Product search by primary category", done => {
         chai
             .request(app)
-            .get('/categories/mens-clothing')
+            .get('/categories/parent/mens')
             .end((err, res) => {
-                expect(res).to.have.status(200);
+                res.should.have.status(200);
                 done();
             })
     });
 })
 
+
 describe("Authentification", () => {
-    it("User register", done => {
-        chai
-            .request(app).post('/auth/signup')
-            .send({ secretKey: SECRETKEY, name: "TestSubject", email: "testEmail@gmail.com", password: "123456" })
-            .then((res) => {
-                expect(res).to.have.status(200);
-                done();
-            }).catch((error) => done(error));
-    })
-
-
     it("User sign in", done => {
         chai
             .request(app).post('/auth/signin')
             .send({ secretKey: SECRETKEY, email: "bbb@gmail.com", password: "123456" })
             .then((res) => {
-                expect(res).to.have.status(200);
+                res.should.have.status(200);
                 done();
             }).catch((error) => done(error));
     })
-
-
 })

@@ -1,29 +1,35 @@
 const { axiosInstance, SECRETKEY, bcrypt } = require("../helpers/HttpRequests");
 
 async function signUp(req, res, next) {
-    let authSignUp, hassedPassword;
+    let hassedPassword;
     try {
+        if (!req.body) {
+            throw new Error("Missing Body");
+        }
         hassedPassword = await bcrypt.hash(req.body.password, 10);
+
+        await axiosInstance.post("auth/signup", {
+            name: req.body.name,
+            email: req.body.email,
+            password: hassedPassword,
+            secretKey: SECRETKEY
+        }).then((response) => {
+        }).catch((error) => {
+            throw new Error(error);
+        }).then(() => {
+        });
     }
     catch (error) {
         next(error);
     }
-
-    await axiosInstance.post("auth/signup", {
-        name: req.body.name,
-        email: req.body.email,
-        password: hassedPassword,
-        secretKey: SECRETKEY
-    }).then((response) => {
-        authSignUp = response.data;
-    }).catch((error) => {
-        next(error);
-    }).then(() => {
-    });
 }
 
 async function signIn(req, res, next) {
     let authSignIn, hassedEmail, hassedPassword;
+    if (!req.body) {
+        return next();
+    }
+
     try {
         hassedEmail = await bcrypt.hash(req.body.email, 10);
         hassedPassword = await bcrypt.hash(req.body.password, 10);
@@ -44,12 +50,19 @@ async function signIn(req, res, next) {
         res.cookie('user', authSignIn.user, { maxAge: 9000000, httpOnly: true });
         res.cookie('token', authSignIn.token, { maxAge: 9000000, httpOnly: true });
     }).catch((error) => {
-        console.log(error.body);
-        // next(error);
+        next(error);
     })
+}
+
+async function signOut(req, res, next) {
+    if (req.cookies.token) {
+        res.clearCookie('user', { path: '/' });
+        res.clearCookie('token', { path: '/' });
+    }
 }
 
 module.exports = {
     signUp: signUp,
-    signIn: signIn
+    signIn: signIn,
+    signOut: signOut
 }

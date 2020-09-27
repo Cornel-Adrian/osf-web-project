@@ -9,12 +9,15 @@ async function getWishlist(req, res, next) {
     }).then((response) => {
         wishlist = response.data.items;
     }).catch((error) => {
-        next(error);
+        wishlist = [];
     });
     return wishlist;
 }
 
 async function addItemToWishlist(req, res, next) {
+    console.log("In wishlist service ..");
+    console.log(req.body);
+    if (!req.body) { return next(); }
     let header = getHeaderWithJson(req.cookies.token);
     await axiosInstance(
         {
@@ -35,6 +38,7 @@ async function addItemToWishlist(req, res, next) {
 }
 
 async function removeItemFromWishlist(req, res, next) {
+    if (!req.body) { return next(); }
     let removeItemFromWishlistRequest;
     let header = getHeaderWithJson(req.cookies.token);
     await axiosInstance.delete("wishlist/removeItem", {
@@ -52,6 +56,7 @@ async function removeItemFromWishlist(req, res, next) {
 
 
 async function changeItemQuantityWishlist(req, res, next) {
+    if (!req.body) { return next(); }
     let header = getHeaderWithJson(req.cookies.token);
     await axiosInstance.post("wishlist/changeItemQuantity", {
         secretKey: SECRETKEY,

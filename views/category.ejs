@@ -12,7 +12,9 @@
 
 <h1>Products</h1>
 <div class="grid-container">
-    <% if (products) { %>
+    <% if (typeof products == 'undefined') { %>
+    <h2>No Products</h2>
+    <% } else { %>
     <% products.forEach(product => { %>
     <div class="container">
         <h2><strong><%-product.name  %> </strong></h2>

@@ -10,13 +10,9 @@ routes.get('/signin', (req, res) => {
 routes.get('/signup', (req, res) => {
     res.render('signup');
 });
+routes.get('/user', validateCookies, AuthController.userDetails);
 
-routes.get('/signout', (req, res) => {
-    res.clearCookie('user', { path: '/' });
-    res.clearCookie('token', { path: '/' });
-    return res.redirect('/');
-})
-
+routes.get('/signout', AuthController.signOut);
 routes.post('/signup', AuthController.signUp);
 routes.post('/signin', AuthController.signIn);
 

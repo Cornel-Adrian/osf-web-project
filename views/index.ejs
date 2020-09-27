@@ -2,28 +2,6 @@
 <%- include('./partials/navbar')-%>
 
 
-<% if (typeof mainCategory == 'undefined' || mainCategory=='') { %>
-<h1>Main Category</h1>
-<% } else { %>
-<div>
-    <h1><%-mainCategory.name %></h1>
-    <p><%- mainCategory.page_description %> </p>
-</div>
-<% } %>
+<h1>Main Page</h1>
 
-<h1>Subcategories</h1>
-<div class="grid-container">
-    <% if (typeof subCategories == 'undefined' || subCategories=='') { %>
-    <h2>Nothing to show for now</h2>
-    <% } else { %>
-    <% subCategories.forEach(category => { %>
-    <div class="container">
-        <img src="/images/<%- category.image %> " alt="">
-        <br>
-        <p><%- category.page_description %> </p>
-        <a href="/subcategory/<%- category.id %>"><strong>View Subcategories</strong></a>
-    </div>
-    <% }) %>
-    <% } %>
-</div>
 <%- include('./partials/footer')-%>

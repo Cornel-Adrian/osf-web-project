@@ -1,6 +1,7 @@
 const { axiosInstance, SECRETKEYURL } = require("../helpers/HttpRequests");
 
 async function productSearch(req, res, next) {
+    if (!req.query) { return next(); }
     let id = req.query.id;
     let page = req.query.page;
     let primaryCategoryId = req.query.primary_category_id;
@@ -35,6 +36,7 @@ async function productSearch(req, res, next) {
 }
 
 async function getProductById(req, res, next) {
+    if (!req.params){ return next();}
     let id = req.params.id;
     if (id) {
         let product;
@@ -42,13 +44,14 @@ async function getProductById(req, res, next) {
             // Get the sole element from array
             product = response.data[0];
         }).catch((error) => {
-            next(error);
+            product = [];
         });
         return product;
     }
 }
 
 async function getProductByParentId(req, res, next) {
+    if (!req.params){ return next();}
     let id = req.params.id;
     if (id) {
         let products;
@@ -64,5 +67,5 @@ async function getProductByParentId(req, res, next) {
 module.exports = {
     productSearch: productSearch,
     getProductById: getProductById,
-    getProductByParentId:getProductByParentId
+    getProductByParentId: getProductByParentId
 }
