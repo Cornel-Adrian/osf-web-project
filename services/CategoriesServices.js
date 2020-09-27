@@ -4,7 +4,7 @@ async function getCategoryById(req, res, next) {
     let categoryId;
     let categoryIdRequest;
     if (!req.params) {
-        categoryId = 'mens';
+        return next();
     }
     else {
         categoryId = req.params.id;
@@ -13,8 +13,7 @@ async function getCategoryById(req, res, next) {
     await axiosInstance.get("/categories/" + categoryId + "?" + SECRETKEYURL).then((response) => {
         categoryIdRequest = response.data;
     }).catch((error) => {
-        categoryIdRequest = '';
-        next(error);
+        return next(error);
     });
     return categoryIdRequest;
 }
@@ -23,7 +22,7 @@ async function getCategoriesByParentId(req, res, next) {
     let parentId;
     let categoryParentIdRequest;
     if (!req.params) {
-        parentId = "mens";
+        return next();
     }
     else {
         parentId = req.params.id;
@@ -32,7 +31,7 @@ async function getCategoriesByParentId(req, res, next) {
         categoryParentIdRequest = response.data;
     }).catch((error) => {
         categoryParentIdRequest = '';
-        next(error);
+        return next(error);
     });
     return categoryParentIdRequest;
 }
@@ -42,8 +41,8 @@ async function getAllCategories(req, res, next) {
     await axiosInstance.get("categories?" + SECRETKEYURL).then((response) => {
         categories = response.data;
     }).catch((error) => {
-        categories ='';
-        next(error);
+        categories = '';
+        return next(error);
     });
     return categories;
 

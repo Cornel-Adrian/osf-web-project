@@ -46,7 +46,7 @@ async function changeItemQuantity(req, res, next) {
     }).then((res) => {
         createOrderRequest = res.data;
     }).catch((error) => {
-        next(error);
+        return next(error);
     });
 }
 

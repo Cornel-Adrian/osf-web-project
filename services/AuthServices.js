@@ -13,7 +13,7 @@ async function signUp(req, res, next) {
     }).then((response) => {
         return;
     }).catch((error) => {
-        next('Email Adress incorect');
+        return next('Email Adress incorect');
     });
 }
 
@@ -33,7 +33,7 @@ async function signIn(req, res, next) {
         res.cookie('user', authSignIn.user, { maxAge: 9000000 });
         res.cookie('token', authSignIn.token, { maxAge: 9000000 });
     }).catch((error) => {
-        next(error);
+        return next(error);
     })
 }
 

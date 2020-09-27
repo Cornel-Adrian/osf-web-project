@@ -11,7 +11,7 @@ async function productSearch(req, res, next) {
         await axiosInstance.get("/products/product_search?id=" + id + "&" + SECRETKEYURL).then((response) => {
             product = response.data;
         }).catch((error) => {
-            next(error);
+            return next(error);
         });
         return product;
     }
@@ -20,7 +20,7 @@ async function productSearch(req, res, next) {
         await axiosInstance.get("/products/product_search?page=" + page + "&" + SECRETKEYURL).then((response) => {
             productPage = response.data;
         }).catch((error) => {
-            next(error);
+            return next(error);
         });
         return productPage;
     }
@@ -29,7 +29,7 @@ async function productSearch(req, res, next) {
         await axiosInstance.get("/products/product_search?primary_category_id=" + primaryCategoryId + "&" + SECRETKEYURL).then((response) => {
             productCategory = response.data;
         }).catch((error) => {
-            next(error);
+            return next(error);
         });
         return productCategory;
     }
@@ -58,7 +58,7 @@ async function getProductByParentId(req, res, next) {
         await axiosInstance.get("/products/product_search?primary_category_id=" + id + "&" + SECRETKEYURL).then((response) => {
             products = response.data;
         }).catch((error) => {
-            next(error);
+            return next(error);
         });
         return products;
     }
@@ -80,7 +80,7 @@ async function addItem(req, res, next) {
                 headers: header
             }).then((response) => {
             }).catch((error) => {
-                next(error);
+                return next(error);
             })
         }
 
@@ -96,10 +96,10 @@ async function addItem(req, res, next) {
                 }
             ).then((response) => {
             }).catch((error) => {
-                next(error);
+                return next(error);
             });
         }
-        next();
+        return next();
     }
 }
 

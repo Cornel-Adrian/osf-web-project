@@ -9,7 +9,7 @@ async function getOrders(req, res, next) {
     }).then((res) => {
         orderResponse = res.data;
     }).catch((error) => {
-        next(error);
+        return next(error);
     });
     return orderResponse;
 }
@@ -18,7 +18,7 @@ async function createOrder(req, res, next) {
     if (!req.body) { return next(); }
     // import cart items
     let cart = await cartServices.getCart(req, res, next).catch((error) => {
-        next(error);
+        return next(error);
     }
     );
     let header = getHeader(req.cookies.token);
@@ -30,7 +30,7 @@ async function createOrder(req, res, next) {
     }, { headers: header }
     ).then((response) => {
     }).catch((error) => {
-        next(error);
+        return next(error);
     })
 
 }

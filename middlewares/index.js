@@ -2,12 +2,13 @@ module.exports = function (app, express, cookieParser) {
     const Sentry = require("@sentry/node");
     const SENTRYDSN = process.env.SENTRYDSN;
     const bodyParser = require('body-parser');
-    const path = require('path');
     const session = require('express-session');
+    var MemoryStore = require('memorystore')(session)
     Sentry.init({
         dsn: SENTRYDSN,
         tracesSampleRate: 1.0,
     });
+    app.set('trust proxy', 1);
     app.use(Sentry.Handlers.requestHandler());
     app.use(Sentry.Handlers.errorHandler());
     app.set('views', './views');
@@ -20,9 +21,12 @@ module.exports = function (app, express, cookieParser) {
     app.use(session({
         secret: 'secret',
         saveUninitialized: true,
+        store: new MemoryStore({
+            checkPeriod: 86400000 // prune expired entries every 24h
+        }),
         resave: false,
-        cookie:{
-            path:'/',
+        cookie: {
+            path: '/',
             secure: true,
             httpOnly: true
         }

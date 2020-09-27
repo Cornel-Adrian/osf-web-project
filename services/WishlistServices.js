@@ -28,7 +28,7 @@ async function updateItemFromWishlist(req, res, next) {
                 headers: header
             }).then((response) => {
             }).catch((error) => {
-                next(error);
+                return next(error);
             });
         }
         if (req.body.vote == "remove") {
@@ -40,7 +40,7 @@ async function updateItemFromWishlist(req, res, next) {
                 headers: header
             }).then((response) => {
             }).catch((error) => {
-                next(error);
+                return next(error);
             });
         }
     }

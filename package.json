@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "engine": {
-    "node": "12.x",
+    "node": "12.18.3",
     "npm": "6.x"
   },
   "scripts": {
@@ -32,6 +32,7 @@
     "fs": "0.0.1-security",
     "install": "^0.13.0",
     "jake": "^10.8.2",
+    "memorystore": "^1.6.2",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
     "redis": "^3.0.2",
