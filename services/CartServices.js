@@ -16,21 +16,6 @@ async function getCart(req, res, next) {
     return cart;
 }
 
-async function addItemToCart(req, res, next) {
-    if (!req.body) { return next(); }
-    let header = getHeader(req.cookies.token);
-    await axiosInstance.post('/cart/addItem', {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId,
-        quantity: req.body.quantity
-    }, {
-        headers: header
-    }).then((response) => {
-    }).catch((error) => {
-        next(error);
-    })
-}
 
 async function removeItem(req, res, next) {
     if (!req.body) { return next(); }
@@ -69,7 +54,6 @@ async function changeItemQuantity(req, res, next) {
 
 module.exports = {
     getCart: getCart,
-    addItemToCart: addItemToCart,
     removeItem: removeItem,
     changeItemQuantity, changeItemQuantity
 }

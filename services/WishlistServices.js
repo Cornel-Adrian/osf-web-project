@@ -14,29 +14,6 @@ async function getWishlist(req, res, next) {
     return wishlist;
 }
 
-async function addItemToWishlist(req, res, next) {
-    console.log("In wishlist service ..");
-    console.log(req.body);
-    if (!req.body) { return next(); }
-    let header = getHeaderWithJson(req.cookies.token);
-    await axiosInstance(
-        {
-            method: 'post',
-            url: '/wishlist/addItem',
-            data: {
-                secretKey: SECRETKEY,
-                productId: req.body.productId,
-                variantId: req.body.variantId,
-                quantity: req.body.quantity
-            },
-            headers: header
-        }
-    ).then((response) => {
-    }).catch((error) => {
-        next(error);
-    });
-}
-
 async function removeItemFromWishlist(req, res, next) {
     if (!req.body) { return next(); }
     let removeItemFromWishlistRequest;
@@ -74,7 +51,6 @@ async function changeItemQuantityWishlist(req, res, next) {
 
 module.exports = {
     getWishlist: getWishlist,
-    addItemToWishlist: addItemToWishlist,
     removeItemFromWishlist: removeItemFromWishlist,
     changeItemQuantityWishlist: changeItemQuantityWishlist
 }

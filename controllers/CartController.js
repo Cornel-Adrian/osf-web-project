@@ -5,11 +5,6 @@ async function getCart(req, res, next) {
     return res.render('cart', { cart: cart});
 }
 
-async function addItemToCart(req, res, next) {
-    await cartServices.addItemToCart(req, res, next);
-    return res.render('cart');
-}
-
 async function deleteItemFromCart(req, res, next) {
     await cartServices.removeItem(req, res, next);
     return res.render('cart');
@@ -23,7 +18,6 @@ async function changeItemQuantity(req, res, next) {
 
 module.exports = {
     getCart: getCart,
-    addItemToCart: addItemToCart,
     deleteItemFromCart: deleteItemFromCart,
     changeItemQuantity: changeItemQuantity
 }

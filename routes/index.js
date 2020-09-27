@@ -4,7 +4,7 @@ module.exports = function (app) {
   });
 
   app.use('/', require('./MainRoutes'));
-  app.use('/product/:id', require('./ProductRoutes'));
+  app.use('/product', require('./ProductRoutes'));
   app.use('/categories', require('./CategoriesRoutes'));
   app.use('/auth', require('./AuthRoutes'));
   app.use('/cart', require('./CartRoutes'));
