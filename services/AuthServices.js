@@ -47,8 +47,8 @@ async function signIn(req, res, next) {
         }
     }).then((response) => {
         authSignIn = response.data;
-        res.cookie('user', authSignIn.user, { maxAge: 9000000, httpOnly: true });
-        res.cookie('token', authSignIn.token, { maxAge: 9000000, httpOnly: true });
+        res.cookie('user', authSignIn.user, { maxAge: 9000000 });
+        res.cookie('token', authSignIn.token, { maxAge: 9000000 });
     }).catch((error) => {
         next(error);
     })
