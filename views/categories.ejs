@@ -3,7 +3,9 @@
 
 <h1>Categories</h1>
 <div class="grid-container">
-    <% if (!(typeof categories == 'undefined')) { %>
+    <% if (typeof categories == 'undefined') { %>
+        <h2>No categories found</h2>
+    <% } else { %>
     <% categories.forEach(category => { %>
     <div class="container">
         <img src="/images/<%- category.image %> " alt="">
@@ -12,7 +14,7 @@
         <a href="/subcategory/<%- category.id %>"><strong>View Subcategories</strong></a>
     </div>
     <% }) %>
-    <% } %>
+    <% } >
 </div>
 
 <%- include('footer')-%>
