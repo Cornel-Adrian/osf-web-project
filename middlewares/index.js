@@ -3,6 +3,7 @@ module.exports = function (app, express, cookieParser) {
     const SENTRYDSN = process.env.SENTRYDSN;
     const bodyParser = require('body-parser');
     const session = require('express-session');
+    const path = require('path');
     Sentry.init({
         dsn: SENTRYDSN,
         tracesSampleRate: 1.0,
