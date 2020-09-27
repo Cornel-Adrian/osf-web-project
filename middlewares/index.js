@@ -10,6 +10,8 @@ module.exports = function (app, express, cookieParser) {
 
     app.use(Sentry.Handlers.requestHandler());
     app.use(Sentry.Handlers.errorHandler());
+    // view engine setup
+    app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'ejs');
     app.use(express.static('public'));
     app.use(bodyParser.json());
