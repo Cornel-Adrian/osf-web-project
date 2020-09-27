@@ -2,14 +2,15 @@ module.exports = function (app, express, cookieParser) {
     const Sentry = require("@sentry/node");
     const SENTRYDSN = process.env.SENTRYDSN;
     const bodyParser = require('body-parser');
+    const path = require('path');
     const session = require('express-session');
     Sentry.init({
         dsn: SENTRYDSN,
         tracesSampleRate: 1.0,
     });
-
     app.use(Sentry.Handlers.requestHandler());
     app.use(Sentry.Handlers.errorHandler());
+    app.set('views', './views');
     app.set('view engine', 'ejs');
     app.use(express.static('public'));
     app.use(bodyParser.json());
