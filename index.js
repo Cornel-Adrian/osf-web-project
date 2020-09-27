@@ -5,8 +5,6 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.set('view engine', 'ejs');
-
 require('dotenv').config();
 require('./middlewares')(app, express, cookieParser);
 require('./routes')(app);
