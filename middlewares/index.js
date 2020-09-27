@@ -19,9 +19,8 @@ module.exports = function (app, express, cookieParser) {
     app.use(cookieParser());
     app.use(session({
         secret: 'secret',
-        cookie: { maxAge: 60000 },
-        saveUninitialized: false,
-        resave: true,
+        saveUninitialized: true,
+        resave: false,
         cookie:{
             path:'/',
             secure: true,
