@@ -14,43 +14,40 @@ async function getWishlist(req, res, next) {
     return wishlist;
 }
 
-async function removeItemFromWishlist(req, res, next) {
+async function updateItemFromWishlist(req, res, next) {
     if (!req.body) { return next(); }
-    let removeItemFromWishlistRequest;
-    let header = getHeaderWithJson(req.cookies.token);
-    await axiosInstance.delete("wishlist/removeItem", {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId
-    }, {
-        headers: header
-    }).then((response) => {
-        removeItemFromWishlistRequest = response.data;
-    }).catch((error) => {
-        next(error);
-    });
+    let header = getHeader(req.cookies.token);
+    if (req.body.vote) {
+        if (req.body.vote == "update") {
+            await axiosInstance.post("wishlist/changeItemQuantity", {
+                secretKey: SECRETKEY,
+                productId: req.body.productId,
+                variantId: req.body.variantId,
+                quantity: req.body.quantity
+            }, {
+                headers: header
+            }).then((response) => {
+            }).catch((error) => {
+                next(error);
+            });
+        }
+        if (req.body.vote == "remove") {
+            await axiosInstance.delete("wishlist/removeItem", {
+                secretKey: SECRETKEY,
+                productId: req.body.productId,
+                variantId: req.body.variantId
+            }, {
+                headers: header
+            }).then((response) => {
+            }).catch((error) => {
+                next(error);
+            });
+        }
+    }
 }
-
-
-async function changeItemQuantityWishlist(req, res, next) {
-    if (!req.body) { return next(); }
-    let header = getHeaderWithJson(req.cookies.token);
-    await axiosInstance.post("wishlist/changeItemQuantity", {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId
-    }, {
-        headers: header
-    }).then((response) => {
-    }).catch((error) => {
-        next(error);
-    });
-}
-
 
 
 module.exports = {
     getWishlist: getWishlist,
-    removeItemFromWishlist: removeItemFromWishlist,
-    changeItemQuantityWishlist: changeItemQuantityWishlist
+    updateItemFromWishlist: updateItemFromWishlist
 }

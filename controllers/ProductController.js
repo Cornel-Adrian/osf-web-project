@@ -1,5 +1,4 @@
 const productServices = require('../services/ProductServices');
-const cartServices = require('../services/CartServices');
 
 
 async function getProductById(req, res, next) {

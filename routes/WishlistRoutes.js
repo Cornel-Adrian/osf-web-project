@@ -4,7 +4,6 @@ const WishlistController = require('../controllers/WishlistController');
 const { validateCookies } = require('../helpers/HttpRequests');
 
 routes.get('/', validateCookies, WishlistController.getWishlist);
-routes.delete('/removeItem',validateCookies, WishlistController.deleteItemFromWishlist);
-routes.post('/changeItemQuantity', validateCookies ,WishlistController.changeItemQuantity);
+routes.post('/', validateCookies ,WishlistController.updateItemFromWishlist);
 
 module.exports = routes;

@@ -15,15 +15,12 @@ async function getOrders(req, res, next) {
 }
 
 async function createOrder(req, res, next) {
-    if(!req.body){ return next();}
+    if (!req.body) { return next(); }
     // import cart items
     let cart = await cartServices.getCart(req, res, next).catch((error) => {
         next(error);
-        res.render('error', { error: 'Cart is empty' });
-        return;
     }
     );
-    let orderCreateResponse;
     let header = getHeader(req.cookies.token);
     await axiosInstance.post('/orders', {
         secretKey: SECRETKEY,
@@ -32,10 +29,8 @@ async function createOrder(req, res, next) {
         items: cart
     }, { headers: header }
     ).then((response) => {
-        orderCreateResponse = response.data;
     }).catch((error) => {
         next(error);
-        return;
     })
 
 }

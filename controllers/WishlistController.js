@@ -5,19 +5,14 @@ async function getWishlist(req, res, next) {
     return res.render('wishlist', { wishlist: wishlist});
 }
 
-async function deleteItemFromWishlist(req, res, next) {
-    await wishlistServices.removeItemFromWishlist(req, res, next);
-    return res.redirect('/');
-}
-
-async function changeItemQuantity(req, res, next) {
-    await wishlistServices.changeItemQuantityWishlist(req, res, next);
-    return res.redirect('/');
+async function updateItemFromWishlist(req, res,next)
+{
+    await wishlistServices.updateItemFromWishlist(req,res,next)
+    return res.redirect('/wishlist');
 }
 
 
 module.exports = {
     getWishlist: getWishlist,
-    deleteItemFromWishlist: deleteItemFromWishlist,
-    changeItemQuantity: changeItemQuantity
+    updateItemFromWishlist: updateItemFromWishlist
 }

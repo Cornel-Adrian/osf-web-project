@@ -4,7 +4,6 @@ const CartController = require('../controllers/CartController');
 const { validateCookies } = require('../helpers/HttpRequests');
 
 routes.get('/', validateCookies, CartController.getCart);
-routes.delete('/removeItem', validateCookies, CartController.deleteItemFromCart);
-routes.post('/changeItemQuantity', validateCookies, CartController.changeItemQuantity);
+routes.post('/', validateCookies, CartController.updateItemFromCart);
 
 module.exports = routes;
