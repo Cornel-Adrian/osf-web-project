@@ -1,5 +1,6 @@
-<%- include partials/header -%>
-<%- include partials/navbar -%>
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
 
 
 <% if (typeof mainCategory == 'undefined') { %>
@@ -22,4 +23,5 @@
     <% }) %>
     <% } %>
 </div>
-<%- include('./partials/footer')-%>
+
+<%- include('partials/footer') %>

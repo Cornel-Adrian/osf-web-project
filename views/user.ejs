@@ -1,5 +1,6 @@
-<%- include partials/header -%>
-<%- include partials/navbar -%>
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
 <h1>User Details</h1>
 <% if (typeof user == 'undefined') { %>
 <h3>User details available </h3>
@@ -7,4 +8,5 @@
     <h3>Email address: <%- user.email %></h3>
     <h3>Registration date: <%- user.createdAt %></h3>
 <% } %>
-<%- include('./partials/footer')-%>
+
+<%- include('partials/footer') %>

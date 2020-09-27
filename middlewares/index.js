@@ -3,7 +3,6 @@ module.exports = function (app, express, cookieParser) {
     const SENTRYDSN = process.env.SENTRYDSN;
     const bodyParser = require('body-parser');
     const session = require('express-session');
-    const path = require('path');
     Sentry.init({
         dsn: SENTRYDSN,
         tracesSampleRate: 1.0,
@@ -11,8 +10,6 @@ module.exports = function (app, express, cookieParser) {
 
     app.use(Sentry.Handlers.requestHandler());
     app.use(Sentry.Handlers.errorHandler());
-    // view engine setup
-    app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'ejs');
     app.use(express.static('public'));
     app.use(bodyParser.json());
