@@ -21,7 +21,12 @@ module.exports = function (app, express, cookieParser) {
         secret: 'secret',
         cookie: { maxAge: 60000 },
         saveUninitialized: false,
-        resave: true
+        resave: true,
+        cookie:{
+            path:'/',
+            secure: true,
+            httpOnly: true
+        }
     }))
 
     //Send information via cookies
