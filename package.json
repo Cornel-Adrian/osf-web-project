@@ -27,6 +27,7 @@
     "find-config": "^1.0.0",
     "fs": "0.0.1-security",
     "install": "^0.13.0",
+    "jake": "^10.8.2",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
     "redis": "^3.0.2",
