@@ -8,7 +8,7 @@ async function getOrders(req, res, next) {
 
 async function createOrder(req, res, next) {
     await ordersServices.createOrder(req, res, next);
-    return res.redirect('orders');
+    return res.redirect('/orders');
 }
 
 async function checkout(req, res, next) {

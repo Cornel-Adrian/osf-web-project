@@ -11,7 +11,7 @@
     <% } else { %>
 
     <% cart.forEach(product => { %>
-    <% PriceSum =+ product.variant.price %>
+    <% PriceSum =+ product.variant.price * product.quantity * 1.00 %>
     <div class="container">
         <form method="POST">
             <p>Product ID: <%- product.productId%> </p>
@@ -25,8 +25,8 @@
         </form>
     </div>
     <br>
-    <h1>Total Price: <%- PriceSum %> USD </h1>
     <% })} %>
+    <h1>Total Price: <%- PriceSum %> USD </h1>
 </div>
 <a href="/orders/checkout"><button>Checkout Order</button></a>
 </form>

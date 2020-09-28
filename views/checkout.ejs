@@ -3,7 +3,7 @@
 
 
 <h1>Checkout</h1>
-<form action="/orders" method="POST"></form>
+<form action="/orders/checkout" method="POST">
 <label>Adress:</label>
 <input type="text" name="address"></input>
 <br>
@@ -17,7 +17,7 @@
     <% } else { %>
 
     <% cart.forEach(product => { %>
-    <% PriceSum =+ product.variant.price %>
+    <% PriceSum =+ product.variant.price * product.quantity %>
     <div class="container">
         <p>Product ID: <%- product.productId%> </p>
         <p>Product Quantity: <%- product.quantity %> </p>
@@ -28,6 +28,6 @@
     <% })} %>
 </div>
 
-<button type="submit" id="checkout-button">Place Order</button>
+<button type="submit">Place Order</button>
 </form>
 <%- include('footer')-%>
