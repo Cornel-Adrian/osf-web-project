@@ -18,16 +18,16 @@ async function getCart(req, res, next) {
 
 async function updateItemFromCart(req, res, next) {
     if (!req.body) { return next(); }
-    let header= getHeader(req.cookies.token);
+    let header = getHeader(req.cookies.token);
     if (req.body.vote) {
         if (req.body.vote == "update") {
             await axiosInstance.post("cart/changeItemQuantity", {
-                headers: header
-            }, {
                 secretKey: SECRETKEY,
                 productId: req.body.productId,
                 variantId: req.body.variantId,
                 quantity: req.body.quantity
+            }, {
+                headers: header
             }).then((response) => {
             }).catch((error) => {
                 return next(error);
