@@ -35,7 +35,7 @@ module.exports = function (app, express, cookieParser) {
     //Send information via cookies
     app.use((req, res, next) => {
         res.locals.user = req.cookies.user;
-        return next();
+        next();
     });
 
     // fallthrough error handler
