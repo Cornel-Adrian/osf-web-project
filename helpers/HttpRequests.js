@@ -33,7 +33,7 @@ function validateCookies(req, res, next) {
 
 
 
-//Stripe integration 
+//Stripe integration to be done
 async function stripePayment(req, res) {
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],

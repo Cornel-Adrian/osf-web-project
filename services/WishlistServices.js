@@ -9,7 +9,10 @@ async function getWishlist(req, res, next) {
     }).then((response) => {
         wishlist = response.data.items;
     }).catch((error) => {
-        wishlist = [];
+        if (error.response.data.error == 'There is no wishlist created for this user') {
+            return wishlist = [];
+        }
+        return next(error);
     });
     return wishlist;
 }

@@ -9,16 +9,18 @@ async function getCart(req, res, next) {
     }).then((response) => {
         return cart = response.data.items;
     }).catch((error) => {
-        cart = [];
+        if (error.response.data.error == 'There is no cart created for this user') {
+            return cart = [];
+        }
+        return next(error);
     }).then(() => {
         return cart;
     });
-    return cart;
 }
 
 async function updateItemFromCart(req, res, next) {
     if (!req.body) { return next(); }
-    let header= getHeader(req.cookies.token);
+    let header = getHeader(req.cookies.token);
     if (req.body.vote) {
         if (req.body.vote == "update") {
             await axiosInstance.post("cart/changeItemQuantity", {
