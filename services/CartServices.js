@@ -9,7 +9,10 @@ async function getCart(req, res, next) {
     }).then((response) => {
         return cart = response.data.items;
     }).catch((error) => {
-        cart = [];
+        if (error.response.data.error == 'There is no cart created for this user') {
+            return cart = [];
+        }
+        return next(error);
     }).then(() => {
         return cart;
     });
