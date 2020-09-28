@@ -3,7 +3,7 @@ const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helper
 
 async function getCart(req, res, next) {
     let cart;
-    let header = getHeader(req.cookies.token) || "";
+    let header = getHeader(req.cookies.token);
     await axiosInstance.get("cart?" + SECRETKEYURL, {
         headers: header
     }).then((response) => {
@@ -14,40 +14,6 @@ async function getCart(req, res, next) {
         return cart;
     });
     return cart;
-}
-
-
-async function removeItem(req, res, next) {
-    if (!req.body) { return next(); }
-    let header = getHeader(req.cookies.token);
-    await axiosInstance.delete("cart/removeItem", {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId
-    }, {
-        headers: header
-    }).then((response) => {
-        removeItemRequest = response.data;
-    }).catch((error) => {
-        next(error);
-    });
-}
-
-
-async function changeItemQuantity(req, res, next) {
-    if (!req.body) { return next(); }
-    let header = getHeader(req.cookies.token);
-    await axiosInstance.post("cart/changeItemQuantity", {
-        secretKey: SECRETKEY,
-        productId: req.body.productId,
-        variantId: req.body.variantId
-    }, {
-        headers: header
-    }).then((res) => {
-        createOrderRequest = res.data;
-    }).catch((error) => {
-        return next(error);
-    });
 }
 
 async function updateItemFromCart(req, res, next){
@@ -78,6 +44,7 @@ async function updateItemFromCart(req, res, next){
                 headers: header
             }).then((response) => {
             }).catch((error) => {
+                console.log(error.response);
                 next(error);
             });
         }
@@ -87,7 +54,5 @@ async function updateItemFromCart(req, res, next){
 
 module.exports = {
     getCart: getCart,
-    removeItem: removeItem,
-    changeItemQuantity, changeItemQuantity,
     updateItemFromCart: updateItemFromCart
 }

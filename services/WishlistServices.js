@@ -34,12 +34,12 @@ async function updateItemFromWishlist(req, res, next) {
         if (req.body.vote == "remove") {
             await axiosInstance.delete("wishlist/removeItem", {
                 secretKey: SECRETKEY,
-                productId: req.body.productId,
                 variantId: req.body.variantId
             }, {
                 headers: header
             }).then((response) => {
             }).catch((error) => {
+                console.log(error.response);
                 return next(error);
             });
         }

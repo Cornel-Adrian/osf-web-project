@@ -2,12 +2,15 @@ const app = require("../index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { SECRETKEY } = require('../helpers/HttpRequests')
-
 const { expect } = chai;
+
+
 // asertion style
 chai.should();
-
 chai.use(chaiHttp);
+
+const loginDetails = { secretKey: SECRETKEY, email: "bbb@gmail.com", password: "123456" };
+
 describe("Server!", () => {
     it("Check localhost", done => {
         chai
@@ -52,6 +55,16 @@ describe("Categories tests", () => {
                 done();
             });
     });
+
+    it("Get Categories Products", done => {
+        chai
+            .request(app)
+            .get("/category/mens-clothing-jackets")
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                done();
+            });
+    });
 });
 
 describe("Products checks", () => {
@@ -82,9 +95,36 @@ describe("Authentification", () => {
         chai
             .request(app).post('/auth/signin')
             .send({ secretKey: SECRETKEY, email: "bbb@gmail.com", password: "123456" })
+            .end((error, res) => {
+                res.status.should.equal(200);
+                token = res.body.token;
+                res.type.should.equal('text/html');
+                done();
+            })
+            .catch((error) => done(error));
+    });
+
+    it("User sign out", done => {
+        chai
+            .request(app).get('/auth/signout')
             .then((res) => {
                 res.should.have.status(200);
                 done();
             }).catch((error) => done(error));
-    })
+    });
+})
+
+describe('Cart Services', () => {
+
+    it('View', done => (
+        chai.request(app).post('/auth/signin')
+            .send(loginDetails)
+            .end((error, res) => {
+                chai.request(app).get('/cart')
+                    .then((res) => {
+                        res.should.have.status(200);
+                        done();
+                    })
+            })
+    ))
 })

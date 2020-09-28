@@ -13,7 +13,7 @@ async function signUp(req, res, next) {
     }).then((response) => {
         return;
     }).catch((error) => {
-        return next('Email Adress incorect');
+        return next(error);
     });
 }
 
