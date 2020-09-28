@@ -9,14 +9,12 @@ const { expect } = chai;
 chai.should();
 chai.use(chaiHttp);
 
-const loginDetails = { secretKey: SECRETKEY, email: "bbb@gmail.com", password: "123456" };
-
 describe("Server!", () => {
     it("Check localhost", done => {
         chai
             .request(app)
             .get("/")
-            .end((err, res) => {
+            .end((error, res) => {
                 res.should.have.status(200);
                 done();
             });
@@ -30,7 +28,7 @@ describe("Categories tests", () => {
         chai
             .request(app)
             .get("/categories")
-            .end((err, res) => {
+            .end((error, res) => {
                 res.should.have.status(200);
                 done();
             });
@@ -40,7 +38,7 @@ describe("Categories tests", () => {
         chai
             .request(app)
             .get("/categories/parent/mens-clothing")
-            .end((err, res) => {
+            .end((error, res) => {
                 res.should.have.status(200);
                 done();
             });
@@ -50,7 +48,7 @@ describe("Categories tests", () => {
         chai
             .request(app)
             .get("/categories/mens-clothing-jackets")
-            .end((err, res) => {
+            .end((error, res) => {
                 expect(res).to.have.status(200);
                 done();
             });
@@ -60,7 +58,7 @@ describe("Categories tests", () => {
         chai
             .request(app)
             .get("/category/mens-clothing-jackets")
-            .end((err, res) => {
+            .end((error, res) => {
                 expect(res).to.have.status(200);
                 done();
             });
@@ -72,7 +70,7 @@ describe("Products checks", () => {
         chai
             .request(app)
             .get('/product/21736758')
-            .end((err, res) => {
+            .end((error, res) => {
                 res.should.have.status(200);
                 done();
             })
@@ -82,10 +80,11 @@ describe("Products checks", () => {
         chai
             .request(app)
             .get('/categories/parent/mens')
-            .end((err, res) => {
+            .end((error, res) => {
                 res.should.have.status(200);
                 done();
             })
+            .catch((error)=> done(error));
     });
 })
 
@@ -95,7 +94,7 @@ describe("Authentification", () => {
         chai
             .request(app).post('/auth/signin')
             .send({ secretKey: SECRETKEY, email: "bbb@gmail.com", password: "123456" })
-            .end((error, res) => {
+            .then((res) => {
                 res.status.should.equal(200);
                 token = res.body.token;
                 res.type.should.equal('text/html');
@@ -112,19 +111,4 @@ describe("Authentification", () => {
                 done();
             }).catch((error) => done(error));
     });
-})
-
-describe('Cart Services', () => {
-
-    it('View', done => (
-        chai.request(app).post('/auth/signin')
-            .send(loginDetails)
-            .end((error, res) => {
-                chai.request(app).get('/cart')
-                    .then((res) => {
-                        res.should.have.status(200);
-                        done();
-                    })
-            })
-    ))
 })

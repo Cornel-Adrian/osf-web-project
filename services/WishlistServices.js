@@ -1,4 +1,4 @@
-const { axiosInstance, SECRETKEYURL, getHeader, getHeaderWithJson, SECRETKEY } = require("../helpers/HttpRequests");
+const { axiosInstance, SECRETKEYURL, getHeader, SECRETKEY } = require("../helpers/HttpRequests");
 
 
 async function getWishlist(req, res, next) {
@@ -24,24 +24,24 @@ async function updateItemFromWishlist(req, res, next) {
                 productId: req.body.productId,
                 variantId: req.body.variantId,
                 quantity: req.body.quantity
-            }, {
-                headers: header
-            }).then((response) => {
+            }, { headers: header }).then((response) => {
             }).catch((error) => {
                 return next(error);
             });
         }
         if (req.body.vote == "remove") {
-            await axiosInstance.delete("wishlist/removeItem", {
-                secretKey: SECRETKEY,
-                variantId: req.body.variantId
-            }, {
-                headers: header
-            }).then((response) => {
-            }).catch((error) => {
-                console.log(error.response);
-                return next(error);
-            });
+            await axiosInstance({
+                method: 'delete',
+                url: 'wishlist/removeItem',
+                headers: header,
+                data: {
+                    secretKey: SECRETKEY,
+                    productId: req.body.productId,
+                    variantId: req.body.variantId
+                }
+            }
+            ).then(() => { })
+                .catch((error) => { return next(error); });
         }
     }
 }

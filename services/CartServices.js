@@ -16,37 +16,36 @@ async function getCart(req, res, next) {
     return cart;
 }
 
-async function updateItemFromCart(req, res, next){
-    if(!req.body){return next();}
-    let header = getHeader(req.cookies.token);
-    if(req.body.vote)
-    {
-        if(req.body.vote == "update"){
+async function updateItemFromCart(req, res, next) {
+    if (!req.body) { return next(); }
+    let header= getHeader(req.cookies.token);
+    if (req.body.vote) {
+        if (req.body.vote == "update") {
             await axiosInstance.post("cart/changeItemQuantity", {
+                headers: header
+            }, {
                 secretKey: SECRETKEY,
                 productId: req.body.productId,
                 variantId: req.body.variantId,
                 quantity: req.body.quantity
-            }, {
-                headers: header
             }).then((response) => {
             }).catch((error) => {
-                next(error);
+                return next(error);
             });
         }
-        if(req.body.vote == "remove")
-        {
-            await axiosInstance.delete("cart/removeItem", {
-                secretKey: SECRETKEY,
-                productId: req.body.productId,
-                variantId: req.body.variantId
-            }, {
-                headers: header
-            }).then((response) => {
-            }).catch((error) => {
-                console.log(error.response);
-                next(error);
-            });
+        if (req.body.vote == "remove") {
+            await axiosInstance({
+                method: 'delete',
+                url: 'cart/removeItem',
+                headers: header,
+                data: {
+                    secretKey: SECRETKEY,
+                    productId: req.body.productId,
+                    variantId: req.body.variantId
+                }
+            }
+            ).then(() => { })
+                .catch((error) => { return next(error); });
         }
     }
 }
