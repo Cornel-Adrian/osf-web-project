@@ -1,30 +1,22 @@
 const categoriesServices = require('../services/CategoriesServices');
 
-async function getCategoryByID (req, res,next){
-    const returnFromService = await categoriesServices.getCategoryById(req.params.id, req.query["secretKey"]);
-    if (returnFromService)
-    {
-        return res.status(200).json(returnFromService);
-    }
-    else
-    {
-        res.status(404).json({message:"Category not found"});
-    }
-    
+async function getCategoryByID(req, res, next) {
+    const category = await categoriesServices.getCategoryById(req, res, next);
+    return res.render('category', { category: category});
 }
 
-async function getCategoryByParentID(req, res, next){
-    const returnFromService = await categoriesServices.getCategoriesByParentId(req.params.id, req.query["secretKey"]);
-    return res.status(200).json(returnFromService);
+async function getCategoryByParentID(req, res, next) {
+    const categories = await categoriesServices.getCategoriesByParentId(req, res, next);
+    return res.render('categories', { categories: categories});
 }
 
-async function getAllCategories(req, res, next){
-    const returnFromService = await categoriesServices.getAllCategories();
-    return res.status(200).json(returnFromService);
+async function getAllCategories(req, res, next) {
+    const categories = await categoriesServices.getAllCategories(req, res, next);
+    return res.render('categories', { categories: categories});
 }
 
 module.exports = {
     getCategoryByID: getCategoryByID,
     getCategoryByParentID: getCategoryByParentID,
     getAllCategories: getAllCategories
-  }
+}

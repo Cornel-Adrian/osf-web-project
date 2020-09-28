@@ -1,0 +1,29 @@
+<%- include('header'); %>
+<%- include('navbar'); %>
+
+<br>
+<h1>Past Orders:</h1>
+
+<div>
+    <% if (typeof orders == 'undefined') { %>
+    <h2> No past Orders </h2>
+    <% } else{ %>
+    <% orders.forEach(order => { %>
+    <div class="container">
+        <p>Order ID: <%- order._id%> </p>
+        <p>Adress:<%- order.address %> </p>
+        <p>Order Status:<%- order.status %> </p>
+        <p>Payment ID:<%- order.paymentId %> </p>
+        <% order.items.forEach(element => { %>
+        <li>Product ID: <%- element.productId %> </li><br>
+        <li>Quantity: <%- element.quantity %> </li><br>
+        <li>Price: <%- element.variant.price %> </li><br>
+        <% }) %>
+    </div>
+    <br>
+    <br>
+    <% }) %>
+    <% } %>
+</div>
+
+<%- include('footer')-%>

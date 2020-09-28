@@ -1,0 +1,27 @@
+<%- include('header'); %>
+<%- include('navbar'); %>
+
+
+
+<% if (typeof mainCategory == 'undefined') { %>
+<h1>Main Category</h1>
+<% } else { %>
+<div>
+    <h1><%-mainCategory.name %></h1>
+    <p><%- mainCategory.page_description %> </p>
+</div>
+<% } %>
+
+<div class="grid-container">
+    <% if (!(typeof subCategories == 'undefined')) { %>
+    <% subCategories.forEach(category => { %>
+    <div class="container">
+        <img src="/images/<%- category.image %> " alt="">
+        <a href="/category/<%- category.id %>"><strong>View Products</strong></a>
+        <p><%- category.page_description %> </p>
+    </div>
+    <% }) %>
+    <% } %>
+</div>
+
+<%- include('footer')-%>

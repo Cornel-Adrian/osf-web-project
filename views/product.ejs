@@ -1,0 +1,36 @@
+<%- include('header'); %>
+<%- include('navbar'); %>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/product-list.style.css" />
+<div>
+    <% if (product) { %>
+    <div class="container">
+        <img src="/images/<%- product.image_groups[0].images[0].link %>"
+            alt="<%- product.image_groups[0].images[0].alt %>">
+        <h1><%-product.name  %> </h1>
+        <h2><%- product.page_description %> </h2>
+        <h2>Price:<%- product.price %> <%- product.currency %> </h2>
+        <br>
+        <br>
+        <form method="post">
+            <input type="hidden" name="productId" value="<%- product.id %>">
+            <% if (!(typeof product.variants == 'undefined')) { %>
+            <label>Variants:</label>
+            <label for="variant">Choose a Variant:</label>
+            <select id="variant" name="variantId">
+                <% product.variants.forEach(variant => { %>
+                <option value="<%- variant.product_id %>"><%- variant.product_id %></option>
+                <% }) %>
+            </select>
+            <label for="quantity">Quantity:</label>
+            <input type="number" name="quantity">
+            <% } %>
+            <br>
+            <button type="submit" name="vote" value="buy">Buy Now</button>
+            <button type="submit" name="vote" value="wishlist">Add to Wishlist </button>
+        </form>
+    </div>
+    <% } %>
+</div>
+
+<%- include('footer')-%>

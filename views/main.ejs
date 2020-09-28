@@ -1,0 +1,28 @@
+<%- include('header'); %>
+<%- include('navbar'); %>
+
+
+<% if (typeof mainCategory == 'undefined') { %>
+<h1>Main Category</h1>
+<% } else { %>
+<div>
+    <h1><%-mainCategory.name %></h1>
+    <p><%- mainCategory.page_description %> </p>
+</div>
+<% } %>
+
+<h1>Subcategories</h1>
+<div class="grid-container">
+    <% if (!(typeof subCategories == 'undefined')) { %>
+    <% subCategories.forEach(category => { %>
+    <div class="container">
+        <img src="/images/<%- category.image %> " alt="">
+        <br>
+        <p><%- category.page_description %> </p>
+        <a href="subcategory/<%- category.id %>"><strong>View Subcategories</strong></a>
+    </div>
+    <% }) %>
+    <% } %>
+</div>
+
+<%- include('footer')-%>

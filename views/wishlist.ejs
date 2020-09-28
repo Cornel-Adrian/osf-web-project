@@ -1,0 +1,27 @@
+<%- include('header'); %>
+<%- include('navbar'); %>
+
+<h1>Wishlist</h1>
+<div name="items">
+    <% var PriceSum = 0;  %>
+    <% if (typeof wishlist == 'undefined') { %>
+    <h2>Wishlist is empty</h2>
+    <% } else { %>
+
+    <% wishlist.forEach(product => { %>
+    <div class="container">
+        <form method="POST">
+            <p>Product ID: <%- product.productId%> </p>
+            <p>Product Quantity: <%- product.quantity %> </p>
+            <p>Product Price: <%- product.variant.price %> </p>
+            <input type="hidden" name="productId" value="<%- product.productId %>">
+            <input type="hidden" name="variantId" value="<%- product.variant.product_id %>">
+            <label for="quantity"></label><input type="number" name="quantity">
+            <button type="submit" name="vote" value="update">Update Quantity</button>
+            <button type="submit" name="vote" value="remove">Remove Item from cart</button>
+        </form>
+    </div>
+    <br>
+    <% })} %>
+</div>
+<%- include('footer')-%>
