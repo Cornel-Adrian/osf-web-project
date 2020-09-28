@@ -9,8 +9,11 @@ async function getOrders(req, res, next) {
     }).then((res) => {
         orderResponse = res.data;
     }).catch((error) => {
+        if(error.response.data.error == 'There are no orders for this user'){
+            return orderResponse = [];
+        }
         return next(error);
-    });
+    })
     return orderResponse;
 }
 
