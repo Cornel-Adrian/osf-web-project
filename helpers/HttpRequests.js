@@ -13,14 +13,6 @@ function getHeader(token) {
 }
 
 
-function getHeaderWithJson(token) {
-    return {
-        'authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-    }
-}
-
-
 function validateCookies(req, res, next) {
     const { cookies } = req;
     if ('user' in cookies) {
@@ -64,6 +56,5 @@ module.exports = {
     bcrypt: bcrypt,
     getHeader: getHeader,
     validateCookies: validateCookies,
-    getHeaderWithJson: getHeaderWithJson,
     stripePayment: stripePayment
 }
